@@ -13,6 +13,7 @@ export interface NewsItem {
 }
 
 
+
 // Dashboard Statistics Interface
 export interface DashboardStats {
   totalBusinesses: number;
@@ -41,6 +42,21 @@ export interface Business {
 
  export interface MapsProps {
   complianceFilter?: string;
+}
+export interface TableColumn {
+   field: string;
+  header: string;
+  sortable?: boolean;
+  // ... other properties
+}
+
+export interface MapMarker {
+  position: { lat: number; lng: number };
+  businessId: string;
+  businessName: string;
+  owner: string;
+  address: string;
+  compliance: 'compliant' | 'pending' | 'noncompliant';
 }
 
 export interface BusinessNameInfo {

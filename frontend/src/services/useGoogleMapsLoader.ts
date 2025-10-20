@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 
-export const useGoogleMapsLoader = () => {
+interface GoogleMapsLoaderResult {
+  isLoaded: boolean;
+  error: string | null;
+}
+
+export const useGoogleMapsLoader = (): GoogleMapsLoaderResult => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Use type assertion to fix window.google errors
-    const win = window as any;
-    
-    if (win.google && win.google.maps) {
+    if (window.google && window.google.maps) {
       setIsLoaded(true);
       return;
     }
@@ -23,7 +25,7 @@ export const useGoogleMapsLoader = () => {
     const existingScript = document.querySelector(`script[src*="maps.googleapis.com/maps/api/js"]`);
     if (existingScript) {
       const checkLoaded = setInterval(() => {
-        if (win.google && win.google.maps) {
+        if (window.google && window.google.maps) {
           setIsLoaded(true);
           clearInterval(checkLoaded);
         }
@@ -38,7 +40,7 @@ export const useGoogleMapsLoader = () => {
 
     script.onload = () => {
       setTimeout(() => {
-        if (win.google && win.google.maps) {
+        if (window.google && window.google.maps) {
           setIsLoaded(true);
         } else {
           setError('Google Maps loaded but not properly initialized');
@@ -50,14 +52,14 @@ export const useGoogleMapsLoader = () => {
       setError('Failed to load Google Maps API');
     };
 
-    win.gm_authFailure = () => {
+    window.gm_authFailure = () => {
       setError('Google Maps API authentication failed');
     };
 
     document.head.appendChild(script);
 
     return () => {
-      win.gm_authFailure = () => { };
+      window.gm_authFailure = () => { };
     };
   }, []);
 

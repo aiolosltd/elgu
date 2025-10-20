@@ -1,44 +1,72 @@
-import React from 'react';
-import { Building, User, Map, X } from 'lucide-react';
-import { Typography } from '@/components/atoms/typography';
-import type { BusinessDetails } from '@/types';
+import React from "react";
+import { Building, User, Map, X } from "lucide-react";
+import { Typography } from "@/components/atoms/typography";
+import type { BusinessDetails, BusinessNameInfo, BusinessRequirements } from "@/types";
 
 interface BusinessDetailsPanelProps {
   selectedBusiness: BusinessDetails;
   onClose: () => void;
 }
 
+interface AddressData {
+  houseno_?: string;
+  street_?: string;
+  barangay_?: string;
+  municipality_?: string;
+  province_?: string;
+  cellno_?: string;
+  email_?: string;
+}
+
+interface RepresentativeData {
+  repname_?: string;
+  repposition_?: string;
+  cellno_?: string;
+  email_?: string;
+}
+
+// More specific type that matches your business data structure
+type InfoData = Record<string, string | boolean | number | null | undefined>;
+
 export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
   selectedBusiness,
-  onClose
+  onClose,
 }) => {
   const renderInfoSection = (
     title: string,
     icon: React.ReactNode,
-    data: Record<string, any> | null,
+    data: InfoData | BusinessNameInfo | BusinessRequirements | null,
     fields: string[]
   ) => {
     if (!data) return null;
 
     return (
       <div>
-        <Typography as="h3" variant="large" weight="semibold" className="flex items-center gap-2 mb-3">
+        <Typography
+          as="h3"
+          variant="large"
+          weight="semibold"
+          className="flex items-center gap-2 mb-3"
+        >
           {icon}
           {title}
         </Typography>
         <div className="space-y-2 text-sm">
           {fields.map((field) => {
-            const value = data[field];
-            if (!value) return null;
-            
-            const fieldLabel = field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            
+            // Use type assertion to access the field
+            const value = (data as InfoData)[field];
+            if (value === null || value === undefined || value === '') return null;
+
+            const fieldLabel = field
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
+
             return (
               <div key={field} className="grid grid-cols-2 gap-2">
                 <Typography as="span" weight="medium" className="text-gray-600">
                   {fieldLabel}:
                 </Typography>
-                <Typography as="span">{value}</Typography>
+                <Typography as="span">{String(value)}</Typography>
               </div>
             );
           })}
@@ -47,18 +75,24 @@ export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
     );
   };
 
-  const renderAddressSection = (address: any) => {
+  const renderAddressSection = (address: AddressData | null | undefined) => {
     if (!address) return null;
 
     return (
       <div>
-        <Typography as="h3" variant="large" weight="semibold" className="flex items-center gap-2 mb-3">
+        <Typography
+          as="h3"
+          variant="large"
+          weight="semibold"
+          className="flex items-center gap-2 mb-3"
+        >
           <Map size={16} />
           Address Information
         </Typography>
         <div className="space-y-2 text-sm">
           <Typography as="div">
-            <strong>Address:</strong> {address.houseno_} {address.street_}, {address.barangay_}
+            <strong>Address:</strong> {address.houseno_} {address.street_},{" "}
+            {address.barangay_}
           </Typography>
           <Typography as="div">
             <strong>Municipality:</strong> {address.municipality_}
@@ -81,12 +115,17 @@ export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
     );
   };
 
-  const renderRepresentativeSection = (representative: any) => {
+  const renderRepresentativeSection = (representative: RepresentativeData | null | undefined) => {
     if (!representative) return null;
 
     return (
       <div>
-        <Typography as="h3" variant="large" weight="semibold" className="flex items-center gap-2 mb-3">
+        <Typography
+          as="h3"
+          variant="large"
+          weight="semibold"
+          className="flex items-center gap-2 mb-3"
+        >
           <User size={16} />
           Representative Information
         </Typography>
@@ -117,7 +156,12 @@ export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
       {/* Header */}
       <div className="p-4 border-b border-gray-200 bg-gray-50">
         <div className="flex items-center justify-between">
-          <Typography as="h2" variant="h4" weight="semibold" className="text-gray-800">
+          <Typography
+            as="h2"
+            variant="h4"
+            weight="semibold"
+            className="text-gray-800"
+          >
             Business Details
           </Typography>
           <button
@@ -136,7 +180,7 @@ export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
         {renderInfoSection(
           "Business Information",
           <Building size={16} />,
-          selectedBusiness.businessInfo,
+          selectedBusiness.businessInfo as BusinessNameInfo | null,
           ['businessid_', 'businessname_', 'dateestablished_', 'ownershiptype_', 'tradename_']
         )}
 
@@ -150,9 +194,10 @@ export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
         {renderInfoSection(
           "Business Requirements",
           null,
-          selectedBusiness.requirements,
+          selectedBusiness.requirements as BusinessRequirements | null,
           ['dtino_', 'dtiexpiry_', 'secno_', 'secexpiry_', 'cdano_', 'cdaexpiry_']
         )}
+
       </div>
     </div>
   );

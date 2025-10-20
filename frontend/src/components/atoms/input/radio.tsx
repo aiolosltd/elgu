@@ -2,7 +2,8 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface RadioProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label: string;
   value: string;
   checked?: boolean;
@@ -64,11 +65,13 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   layout = 'vertical'
 }) => {
   return (
-    <div className={cn(
-      "space-y-2",
-      layout === 'horizontal' && "flex flex-wrap gap-4 space-y-0",
-      className
-    )}>
+    <div
+      className={cn(
+        "space-y-2",
+        layout === 'horizontal' && "flex flex-wrap gap-4 space-y-0",
+        className
+      )}
+    >
       {options.map((option) => (
         <Radio
           key={option.value}

@@ -60,7 +60,7 @@ const WeatherCard = React.forwardRef<HTMLDivElement, WeatherCardProps>(
 
     if (!weather) {
       return (
-        <Card variant="outline" padding="md" className={className}>
+        <Card variant="default" padding="md" className={className}>
           <Typography variant="p" className="text-muted-foreground">
             Weather data unavailable
           </Typography>

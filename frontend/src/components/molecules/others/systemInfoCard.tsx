@@ -31,7 +31,7 @@ const SystemInfoCard = React.forwardRef<HTMLDivElement, SystemInfoCardProps>(
     return (
       <Card
         ref={ref}
-        variant={variant === "alert" ? "filled" : "default"}
+        variant={variant === "alert" ? "gradient" : "default"}
         padding="md"
         className={cn(systemInfoCardVariants({ variant, className }))}
         {...props}

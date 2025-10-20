@@ -1,31 +1,47 @@
-import React, { useState } from 'react';
-import Stepper from '@/components/ui/stepper';
-import BusinessInfo from '@/components/business/BusinessInfo';
-import BusinessRequirements from '@/components/business/BusinessRequirements'
-import Undertaking from '@/components/business/Undertaking';
-import TaxpayerInfo from '@/components/business/taxpayerInfo'
-import { Card } from '@/components/atoms/card';
-import { Typography } from '@/components/atoms/typography';
+import React, { useState } from "react";
+import Stepper from "@/components/ui/stepper";
+import BusinessInfo from "@/components/business/BusinessInfo";
+import BusinessRequirements from "@/components/business/BusinessRequirements";
+import Undertaking from "@/components/business/Undertaking";
+import TaxpayerInfo from "@/components/business/taxpayerInfo";
+import { Card } from "@/components/atoms/card";
+import { Typography } from "@/components/atoms/typography";
 
 const BusinessForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
 
-  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+  const nextStep = () =>
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
 
-  const steps = [
-    'Taxpayer Information',
-    'Business Information',
-    'Business Requirements',
-    'Undertaking/Waiver',
-  ].map((label, index) => {
-    const stepNumber = index + 1;
-    let status: 'complete' | 'current' | 'incomplete' = 'incomplete';
-    if (stepNumber < currentStep) status = 'complete';
-    else if (stepNumber === currentStep) status = 'current';
-    return { label, status };
-  });
+const steps = [
+  { label: "Taxpayer Info", stepNumber: 1 },
+  { label: "Business Info", stepNumber: 2 },
+  { label: "Requirements", stepNumber: 3 },
+  { label: "Undertaking", stepNumber: 4 },
+].map((step, index) => {
+  const stepNumber = index + 1;
+  let status: "complete" | "current" | "incomplete" = "incomplete";
+  if (stepNumber < currentStep) status = "complete";
+  else if (stepNumber === currentStep) status = "current";
+
+  return {
+    label: step.label,
+    status,
+    stepNumber,
+  };
+});
+
+
+
+  
+  const handleSubmit = (payload?: FormData) => {  
+    // TODO: replace with real submission logic (API call, validation, etc.)
+    console.log("Submitting business form", payload);
+    // Optionally move to next step after successful submit
+    nextStep();
+  };
 
   const renderStep = () => {
     const props = { nextStep, prevStep, currentStep, totalSteps };
@@ -37,7 +53,14 @@ const BusinessForm: React.FC = () => {
       case 3:
         return <BusinessRequirements {...props} />;
       case 4:
-        return <Undertaking {...props} />;
+        return (
+          <Undertaking
+            prevStep={prevStep}
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            onSubmit={handleSubmit}
+          />
+        );
       default:
         return <TaxpayerInfo {...props} />;
     }
@@ -60,8 +83,8 @@ const BusinessForm: React.FC = () => {
             Business Overview Dashboard
           </Typography>
           <Typography variant="p" className="text-gray-600">
-            Get a comprehensive view of all registered businesses, compliance rates, and performance
-            trends across municipalities.
+            Get a comprehensive view of all registered businesses, compliance
+            rates, and performance trends across municipalities.
           </Typography>
         </div>
       </Card>

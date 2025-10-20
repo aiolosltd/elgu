@@ -1,10 +1,6 @@
 import type {
   Business,
   BusinessDetails,
-  //   BusinessNameInfo, 
-  //   BusinessAddress, 
-  //   BusinessRepresentative, 
-  //   BusinessRequirements 
 } from '@/types/index';
 
 // Shorter dummy data

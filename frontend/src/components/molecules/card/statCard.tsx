@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 
 const statCardVariants = cva("", {
     variants: {
-        variant: {
+        layout: {
             default: "text-blue-600",
             trend: "flex items-center text-sm",
         },
@@ -22,7 +22,7 @@ const statCardVariants = cva("", {
         }
     },
     defaultVariants: {
-        variant: "default",
+        layout: "default",
         color: "blue",
     },
 })
@@ -42,7 +42,7 @@ export interface StatCardProps
 }
 
 const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
-    ({ className, title, value, icon: Icon, description, trend, color, ...props }, ref) => {
+    ({ className, title, value, icon: Icon, description, trend, color, layout, ...props }, ref) => {
         const bgColorClass = {
             blue: "bg-blue-100",
             green: "bg-green-100",
@@ -61,7 +61,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
                         <Typography variant="small" weight="medium" className="text-gray-600 mb-2">
                             {title}
                         </Typography>
-                        <Typography variant="h2" weight="bold" className={statCardVariants({ color })}>
+                        <Typography variant="h2" weight="bold" className={statCardVariants({ color, layout })}>
                             {value}
                         </Typography>
                         {description && (
@@ -70,7 +70,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
                             </Typography>
                         )}
                         {trend && (
-                            <div className={cn("flex items-center mt-2", statCardVariants({ variant: "trend" }))}>
+                            <div className={cn("flex items-center mt-2", statCardVariants({ layout: "trend" }))}>
                                 <span className={trendColorClass}>
                                     {trend.isPositive ? '↗️' : '↘️'}
                                 </span>

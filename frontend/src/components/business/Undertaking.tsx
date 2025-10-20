@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/atoms/button';
 import { Checkbox } from '@/components/atoms/input/checkbox';
 import { useForm } from '@/context/FormContext';
-import { FileText, Building, Users, MapPin, Calendar, CheckCircle } from 'lucide-react';
+import { FileText, Building, Users, MapPin,  CheckCircle } from 'lucide-react';
 
 interface SummaryProps {
   prevStep: () => void;

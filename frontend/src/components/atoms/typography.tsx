@@ -34,16 +34,16 @@ export interface TypographyProps
     VariantProps<typeof typographyVariants> {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div"
   text?: string
-
 }
 
-const Typography = React.forwardRef<HTMLElement, TypographyProps>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Typography = React.forwardRef<any, TypographyProps>(
   ({ className, variant, weight, as, ...props }, ref) => {
     const Comp = as || (variant === "p" ? "p" : "div")
     
     return (
       <Comp
-        ref={ref as any}
+        ref={ref}
         className={cn(typographyVariants({ variant, weight, className }))}
         {...props}
       >

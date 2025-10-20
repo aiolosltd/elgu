@@ -10,9 +10,9 @@ const GISMain: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [marker, setMarker] = useState<google.maps.Marker | null>(null);
-  const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
+  const [, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
 
   const { isLoaded, error } = useGoogleMapsLoader();
 

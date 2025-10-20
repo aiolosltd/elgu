@@ -1,6 +1,5 @@
-// src/context/FormContext.tsx
-import React, { createContext, useState, useContext, ReactNode } from 'react';
-
+import React, { createContext, useState, useContext} from 'react';
+import type { ReactNode } from 'react';
 // Define the shape of your form data
 interface FormData {
   // Taxpayer Info
@@ -26,13 +25,14 @@ interface FormData {
   sameAsBusinessName: boolean;
   
   [key: string]: any;
+  
 }
 
 // Define the context shape
 interface FormContextType {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-  updateField: (field: string, value: any) => void;
+  updateField: (field: string, value: unknown) => void;
 }
 
 // Create the context
@@ -64,7 +64,7 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     sameAsBusinessName: false,
   });
 
-  const updateField = (field: string, value: any) => {
+  const updateField = (field: string, value: unknown) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

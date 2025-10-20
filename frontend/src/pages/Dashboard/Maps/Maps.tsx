@@ -1,50 +1,70 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { MapPin, Filter, Clock, XCircle, Building, CheckCircle } from 'lucide-react';
-import { Typography } from '@/components/atoms/typography';
-import { Card } from '@/components/atoms/card';
-import { BusinessDetailsPanel } from '@/components/organisms/BusinessDetailsPanel';
-import { BusinessService } from '@/hooks/businessService';
-import { useGoogleMapsLoader } from '@/services/useGoogleMapsLoader';
-import { flagIcons } from '@/utils/mapConstants';
-import type { Business, BusinessDetails, MapMarker } from '@/types';
-import { StatCard } from '@/components/molecules/card/statCard';
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import {
+  MapPin,
+  Filter,
+  Clock,
+  XCircle,
+  Building,
+  CheckCircle,
+} from "lucide-react";
+import { Typography } from "@/components/atoms/typography";
+import { Card } from "@/components/atoms/card";
+import { BusinessDetailsPanel } from "@/components/organisms/BusinessDetailsPanel";
+import { BusinessService } from "@/hooks/businessService";
+import { useGoogleMapsLoader } from "@/services/useGoogleMapsLoader";
+import { flagIcons } from "@/utils/mapConstants";
+import type { Business, BusinessDetails } from "@/types";
+import { StatCard } from "@/components/molecules/card/statCard";
+
+// Add explicit import for google.maps types
+
+interface MapMarker {
+  position: { lat: number; lng: number };
+  businessId: string;
+  businessName: string;
+  owner: string;
+  address: string;
+  compliance: "compliant" | "pending" | "noncompliant";
+}
 
 interface MapsProps {
   complianceFilter?: string;
 }
 
-const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
+type MapViewType = "roadmap" | "satellite" | "terrain" | "streetview";
+
+const Maps: React.FC<MapsProps> = ({ complianceFilter = "" }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [businesses, setBusinesses] = useState<Business[]>([]);
   const [markers, setMarkers] = useState<MapMarker[]>([]);
   const [selectedBusiness, setSelectedBusiness] = useState<BusinessDetails | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [mapView, setMapView] = useState<'roadmap' | 'satellite' | 'terrain' | 'streetview'>('roadmap');
+  const [mapView, setMapView] = useState<MapViewType>("roadmap");
   const [googleMap, setGoogleMap] = useState<google.maps.Map | null>(null);
   const [streetView, setStreetView] = useState<google.maps.StreetViewPanorama | null>(null);
   const [googleMarkers, setGoogleMarkers] = useState<google.maps.Marker[]>([]);
   const [currentFilter, setCurrentFilter] = useState(complianceFilter);
 
   const { isLoaded, error } = useGoogleMapsLoader();
-
   // Load businesses based on filter
-  const loadBusinesses = useCallback(async (filter: string = '') => {
+  const loadBusinesses = useCallback(async (filter: string = "") => {
     try {
-      const data = filter && filter !== 'all'
-        ? await BusinessService.getFilteredBusinesses(filter)
-        : await BusinessService.getAllBusinesses();
+      const data =
+        filter && filter !== "all"
+          ? await BusinessService.getFilteredBusinesses(filter)
+          : await BusinessService.getAllBusinesses();
 
       setBusinesses(data);
       createMarkers(data);
     } catch (error) {
-      console.error('Error loading businesses:', error);
+      console.error("Error loading businesses:", error);
     }
   }, []);
 
   // Handle filter changes
   const handleFilterChange = (filter: string) => {
-    setCurrentFilter(filter === 'all' ? '' : filter);
-    loadBusinesses(filter === 'all' ? '' : filter);
+    setCurrentFilter(filter === "all" ? "" : filter);
+    loadBusinesses(filter === "all" ? "" : filter);
   };
 
   // Load businesses when component mounts or filter changes
@@ -71,21 +91,34 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
     const pendingThreshold = new Date(today);
     pendingThreshold.setDate(pendingThreshold.getDate() + 30);
 
-    const newMarkers: MapMarker[] = businessData.map(business => {
-      const coords = business.longlat_.split(',').map(coord => parseFloat(coord.trim()));
+    const newMarkers: MapMarker[] = businessData.map((business) => {
+      const coords = business.longlat_
+        .split(",")
+        .map((coord) => parseFloat(coord.trim()));
       const lat = coords[0];
       const lng = coords[1];
 
-      const dtiExpiry = business.dtiexpiry_ ? new Date(business.dtiexpiry_) : today;
-      const secExpiry = business.secexpiry_ ? new Date(business.secexpiry_) : today;
-      const cdaExpiry = business.cdaexpiry_ ? new Date(business.cdaexpiry_) : today;
+      const dtiExpiry = business.dtiexpiry_
+        ? new Date(business.dtiexpiry_)
+        : today;
+      const secExpiry = business.secexpiry_
+        ? new Date(business.secexpiry_)
+        : today;
+      const cdaExpiry = business.cdaexpiry_
+        ? new Date(business.cdaexpiry_)
+        : today;
 
-      const isCompliant = dtiExpiry >= pendingThreshold && secExpiry >= pendingThreshold && cdaExpiry >= pendingThreshold;
-      const isPending = !isCompliant && (dtiExpiry >= today || secExpiry >= today || cdaExpiry >= today);
+      const isCompliant =
+        dtiExpiry >= pendingThreshold &&
+        secExpiry >= pendingThreshold &&
+        cdaExpiry >= pendingThreshold;
+      const isPending =
+        !isCompliant &&
+        (dtiExpiry >= today || secExpiry >= today || cdaExpiry >= today);
 
-      let compliance: 'compliant' | 'pending' | 'noncompliant' = 'noncompliant';
-      if (isCompliant) compliance = 'compliant';
-      else if (isPending) compliance = 'pending';
+      let compliance: "compliant" | "pending" | "noncompliant" = "noncompliant";
+      if (isCompliant) compliance = "compliant";
+      else if (isPending) compliance = "pending";
 
       const address = `${business.houseno_} ${business.street_}, ${business.barangay_}, ${business.municipality_}, ${business.province_}`;
 
@@ -95,7 +128,7 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
         businessName: business.businessname_,
         owner: business.repname_,
         address,
-        compliance
+        compliance,
       };
     });
 
@@ -108,10 +141,10 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
     const map = new google.maps.Map(mapRef.current, {
       center: { lat: 10.7868, lng: 122.5894 },
       zoom: 14,
-      mapTypeId: 'roadmap',
+      mapTypeId: "roadmap",
       mapTypeControl: false,
       fullscreenControl: true,
-      streetViewControl: false
+      streetViewControl: false,
     });
 
     const streetViewPanorama = map.getStreetView();
@@ -119,17 +152,17 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
     setGoogleMap(map);
 
     // Add global function for info window buttons
-    (window as any).showFullInfoPopup = showFullInfoPopup;
+    window.showFullInfoPopup = showFullInfoPopup;
   };
 
   const createMarkersOnMap = () => {
     if (!googleMap || !window.google) return;
 
     // Clear existing markers
-    googleMarkers.forEach(marker => marker.setMap(null));
+    googleMarkers.forEach((marker) => marker.setMap(null));
     const newGoogleMarkers: google.maps.Marker[] = [];
 
-    markers.forEach(markerData => {
+    markers.forEach((markerData) => {
       const marker = new google.maps.Marker({
         position: markerData.position,
         map: googleMap,
@@ -137,48 +170,67 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
         icon: {
           url: flagIcons[markerData.compliance],
           scaledSize: new google.maps.Size(32, 32),
-          anchor: new google.maps.Point(16, 16)
-        }
+          anchor: new google.maps.Point(16, 16),
+        },
       });
 
       const infoWindow = new google.maps.InfoWindow({
         content: `
           <div style="padding: 8px; max-width: 250px; font-family: Arial, sans-serif;">
-            <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 14px; font-weight: bold;">${markerData.businessName}</h3>
-            <p style="margin: 4px 0; color: #6b7280; font-size: 12px;"><strong>Owner:</strong> ${markerData.owner}</p>
-            <p style="margin: 4px 0; color: #6b7280; font-size: 12px;"><strong>Address:</strong> ${markerData.address}</p>
+            <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 14px; font-weight: bold;">${
+              markerData.businessName
+            }</h3>
+            <p style="margin: 4px 0; color: #6b7280; font-size: 12px;"><strong>Owner:</strong> ${
+              markerData.owner
+            }</p>
+            <p style="margin: 4px 0; color: #6b7280; font-size: 12px;"><strong>Address:</strong> ${
+              markerData.address
+            }</p>
             <p style="margin: 4px 0; color: #6b7280; font-size: 12px;"><strong>Status:</strong> 
-              <span style="color: ${markerData.compliance === 'compliant' ? '#10b981' : markerData.compliance === 'pending' ? '#f59e0b' : '#ef4444'}; font-weight: bold;">
+              <span style="color: ${
+                markerData.compliance === "compliant"
+                  ? "#10b981"
+                  : markerData.compliance === "pending"
+                  ? "#f59e0b"
+                  : "#ef4444"
+              }; font-weight: bold;">
                 ${markerData.compliance.toUpperCase()}
               </span>
             </p>
             <div style="margin-top: 8px;">
-              <button onclick="window.showFullInfoPopup('${markerData.businessId}')" 
+              <button onclick="window.showFullInfoPopup('${
+                markerData.businessId
+              }')" 
                       style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; width: 100%;">
                 View Full Details
               </button>
             </div>
           </div>
-        `
+        `,
       });
 
-      marker.addListener('mouseover', () => infoWindow.open(googleMap, marker));
-      marker.addListener('mouseout', () => infoWindow.close());
+      marker.addListener("mouseover", () => infoWindow.open(googleMap, marker));
+      marker.addListener("mouseout", () => infoWindow.close());
 
       let clickCount = 0;
-      let clickTimer: NodeJS.Timeout;
+      let clickTimer: ReturnType<typeof setTimeout>;
 
-      marker.addListener('click', () => {
+      marker.addListener("click", () => {
         clickCount++;
         if (clickCount === 2) {
           clickCount = 0;
           clearTimeout(clickTimer);
           googleMap.setZoom(18);
-          googleMap.setCenter(marker.getPosition()!);
+          const position = marker.getPosition();
+          if (position) {
+            googleMap.setCenter(position);
+          }
           infoWindow.open(googleMap, marker);
           showFullInfoPopup(markerData.businessId);
         } else {
-          clickTimer = setTimeout(() => { clickCount = 0; }, 500);
+          clickTimer = setTimeout(() => {
+            clickCount = 0;
+          }, 500);
         }
       });
 
@@ -194,15 +246,15 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
       setSelectedBusiness(details);
       setShowDetails(true);
     } catch (error) {
-      console.error('Error loading business details:', error);
-      alert('Error loading business details');
+      console.error("Error loading business details:", error);
+      alert("Error loading business details");
     }
   };
 
-  const handleMapViewChange = (view: 'roadmap' | 'satellite' | 'terrain' | 'streetview') => {
+  const handleMapViewChange = (view: MapViewType) => {
     setMapView(view);
     if (googleMap && streetView) {
-      if (view === 'streetview') {
+      if (view === "streetview") {
         streetView.setPosition(googleMap.getCenter()!);
         streetView.setPov({ heading: 265, pitch: 0 });
         streetView.setVisible(true);
@@ -219,9 +271,13 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg border border-red-200 p-6">
           <div className="flex items-center gap-3 text-red-600 mb-4">
             <MapPin size={24} />
-            <Typography as="h2" variant="h4" weight="semibold">Maps Error</Typography>
+            <Typography as="h2" variant="h4" weight="semibold">
+              Maps Error
+            </Typography>
           </div>
-          <Typography as="p" variant="p" className="text-gray-700">{error}</Typography>
+          <Typography as="p" variant="p" className="text-gray-700">
+            {error}
+          </Typography>
         </div>
       </div>
     );
@@ -233,58 +289,51 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
       <Card variant="default" padding="lg" className="mb-5">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
           <div className="flex-1">
-            <Typography variant="h1" as="h1" weight="bold" className="text-2xl text-gray-900 mb-1">
+            <Typography
+              variant="h1"
+              as="h1"
+              weight="bold"
+              className="text-2xl text-gray-900 mb-1"
+            >
               Leganes Business Map
             </Typography>
             <Typography variant="p" className="text-gray-600">
-              View the geographical distribution of registered businesses in Leganes and monitor their compliance status in real time.
+              View the geographical distribution of registered businesses in
+              Leganes and monitor their compliance status in real time.
             </Typography>
           </div>
-
         </div>
       </Card>
 
-
-
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-
         <StatCard
           title="All Business"
-          value='1'
+          value="1"
           icon={Building}
-          color="default"
+          color="blue"
         />
 
-        <StatCard
-          title="Pending"
-          value='1'
-          icon={Clock}
-          color="yellow"
-        />
+        <StatCard title="Pending" value="1" icon={Clock} color="yellow" />
 
         <StatCard
           title="Compliant"
-          value='1'
+          value="1"
           icon={CheckCircle}
           color="green"
         />
 
-        <StatCard
-          title="Non-Compliant"
-          value='1'
-          icon={XCircle}
-
-          color="red"
-        />
-
-
+        <StatCard title="Non-Compliant" value="1" icon={XCircle} color="red" />
       </div>
 
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-4 gap-3">
           {/* Title */}
-          <Typography as="h1" variant="lead" className="text-gray-800 flex items-center gap-2">
+          <Typography
+            as="h1"
+            variant="lead"
+            className="text-gray-800 flex items-center gap-2"
+          >
             <MapPin size={24} className="text-blue-600" />
             Leganes Business Maps
           </Typography>
@@ -297,7 +346,7 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
               <select
                 className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={(e) => handleFilterChange(e.target.value)}
-                value={currentFilter || 'all'}
+                value={currentFilter || "all"}
               >
                 <option value="all">All Businesses</option>
                 <option value="compliant">Compliant</option>
@@ -319,26 +368,37 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
 
             {/* Business Count */}
             <div className="bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">
-              <Typography as="div" variant="small" weight="medium" className="text-gray-800">
+              <Typography
+                as="div"
+                variant="small"
+                weight="medium"
+                className="text-gray-800"
+              >
                 Total Businesses:{" "}
-                <Typography as="span" weight="bold">{businesses.length}</Typography>
+                <Typography as="span" weight="bold">
+                  {businesses.length}
+                </Typography>
               </Typography>
             </div>
           </div>
         </div>
       </header>
 
-
       {/* Map Container */}
       <div className="flex-1 flex relative">
         {/* Map View Controls */}
         <div className="absolute top-18 left-4 z-10 bg-white rounded-lg shadow-lg border border-gray-200 p-3">
-          <Typography as="div" variant="small" weight="medium" className="text-gray-700 mb-2 block">
+          <Typography
+            as="div"
+            variant="small"
+            weight="medium"
+            className="text-gray-700 mb-2 block"
+          >
             Map View:
           </Typography>
           <select
             value={mapView}
-            onChange={(e) => handleMapViewChange(e.target.value as any)}
+            onChange={(e) => handleMapViewChange(e.target.value as MapViewType)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="roadmap">Roadmap</option>
@@ -388,7 +448,12 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
         )}
         {/* Legend */}
         <div className="absolute bottom-4 left-4 z-10 bg-white rounded-lg shadow-lg border border-gray-200 p-3">
-          <Typography as="h4" variant="small" weight="semibold" className="text-gray-800 mb-2">
+          <Typography
+            as="h4"
+            variant="small"
+            weight="semibold"
+            className="text-gray-800 mb-2"
+          >
             Legend
           </Typography>
           <div className="space-y-1 text-xs">
@@ -407,8 +472,6 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = '' }) => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };

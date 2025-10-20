@@ -1,19 +1,20 @@
-import { createBrowserRouter } from 'react-router-dom';
-import LoginPage from '@/pages/Auth/LoginPage';
-import RegisterPage from '@/pages/Auth/RegisterPage';
-import VerifyPage from '@/pages/Auth/VerifyPage';
-import DashboardPage from '@/pages/Dashboard/Summary/DashboardPage';
-import BusinessLists from '@/pages/Dashboard/Business/BusinessList';
-import BusinessForm from '@/pages/Dashboard/Business/businessForm';
-import WeatherPages from '@/pages/Dashboard/Summary/WeatherPages';
-import Error from '@/pages/Error';
-import GISmain from '@/pages/Dashboard/Maps/GISMain';
-import Maps from '@/pages/Dashboard/Maps/Maps';
-import MainLayout from '@/layout/main';
+import { createBrowserRouter } from "react-router-dom";
+import LoginPage from "@/pages/Auth/LoginPage";
+import RegisterPage from "@/pages/Auth/RegisterPage";
+import VerifyPage from "@/pages/Auth/VerifyPage";
+import DashboardPage from "@/pages/Dashboard/Summary/DashboardPage";
+import BusinessLists from "@/pages/Dashboard/Business/BusinessList";
+import BusinessForm from "@/pages/Dashboard/Business/businessForm";
+import WeatherPages from "@/pages/Dashboard/Summary/WeatherPages";
+import Error from "@/pages/Error";
+import GISmain from "@/pages/Dashboard/Maps/GISMain";
+import Maps from "@/pages/Dashboard/Maps/Maps";
+import MainLayout from "@/layout/main";
+import { FormProvider } from "@/context/FormContext";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: (
       <MainLayout>
         <DashboardPage />
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/dashboard-summary',
+    path: "/dashboard-summary",
     element: (
       <MainLayout>
         <WeatherPages />
@@ -31,22 +32,20 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/login',
+    path: "/login",
     element: <LoginPage />,
   },
   {
-    path: '/register',
+    path: "/register",
     element: <RegisterPage />,
   },
   {
-    path: '/verify',
+    path: "/verify",
     element: <VerifyPage />,
   },
 
-
-
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
       <MainLayout>
         <DashboardPage />
@@ -55,30 +54,29 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/business-lists',
+    path: "/business-lists",
 
     element: (
       <MainLayout>
         <BusinessLists />
       </MainLayout>
-    )
-
+    ),
   },
 
-    {
-    path: '/business-form',
+  {
+    path: "/business-form",
 
     element: (
       <MainLayout>
-        <BusinessForm />
+        <FormProvider>
+          <BusinessForm />
+        </FormProvider>
       </MainLayout>
-    )
-
+    ),
   },
 
-
   {
-    path: '/satelite-map',
+    path: "/satelite-map",
     element: (
       <MainLayout>
         <GISmain />
@@ -87,7 +85,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/Maps',
+    path: "/Maps",
     element: (
       <MainLayout>
         <Maps />
@@ -96,24 +94,20 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/calendar',
+    path: "/calendar",
     element: (
       <MainLayout>
         <Error />
       </MainLayout>
     ),
   },
-
-
 
   {
-    path: '*',
+    path: "*",
     element: (
       <MainLayout>
         <Error />
       </MainLayout>
     ),
   },
-
-
 ]);

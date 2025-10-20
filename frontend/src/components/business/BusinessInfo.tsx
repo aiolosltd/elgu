@@ -5,7 +5,7 @@ import { Button } from '@/components/atoms/button';
 import { RadioGroup } from '@/components/atoms/input/radio';
 import { Checkbox } from '@/components/atoms/input/checkbox';
 import { useForm } from '@/context/FormContext';
-import { Building, MapPin, User, Calendar, Phone, Mail, FileText, Home } from 'lucide-react';
+import { Building, MapPin, User, Calendar, Phone, FileText, Home } from 'lucide-react';
 
 interface BusinessInfoProps {
   nextStep: () => void;

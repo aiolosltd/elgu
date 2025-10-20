@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/Input';
+import { Input } from '@/components/atoms/input';
 import { Mail } from 'lucide-react';
 
 const VerifyPage = () => {

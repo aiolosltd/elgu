@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/Input';
+import { Input } from '@/components/atoms/input';
 import { FcGoogle } from "react-icons/fc";
 import { Mail, Eye, EyeClosed } from 'lucide-react';
 
@@ -23,10 +23,9 @@ const LoginPage = () => {
           <img src="/assets/logo.png" alt="Logo" className="h-40 mb-4" />
           <h1 className="text-2xl font-bold">Welcome back!</h1>
         </div>
+
         <form className="space-y-6">
           <div>
-            
-
             <Input
               type="email"
               placeholder="Email"
@@ -41,14 +40,14 @@ const LoginPage = () => {
 
          <div>
             <Input
-              type={showPassword ? "text" : "password"} // Toggle input type
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               variant="icon"
               icon={showPassword ? <EyeClosed size={18} /> : <Eye size={18} />} // Toggle icon
               iconPosition="right"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onIconClick={togglePasswordVisibility} // Add click handler
+              onIconClick={togglePasswordVisibility}
             />
           </div>
           <div className="text-right">

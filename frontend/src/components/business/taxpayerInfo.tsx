@@ -1,6 +1,6 @@
 // src/components/forms/TaxpayerInfo.tsx
 import React from 'react';
-import { Input } from '@/components/atoms/Input';
+import { Input } from '@/components/atoms/input';
 import { Button } from '@/components/atoms/button';
 import { RadioGroup } from '@/components/atoms/input/radio';
 import { Checkbox } from '@/components/atoms/input/checkbox';

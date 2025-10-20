@@ -1,11 +1,11 @@
 // src/components/forms/BusinessOperation.tsx
 import React from 'react';
 import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/Input';
+import { Input } from '@/components/atoms/input';
 import { Checkbox } from '@/components/atoms/input/checkbox';
 import { RadioGroup } from '@/components/atoms/input/radio';
 import { useForm } from '@/context/FormContext';
-import { FileText, Calendar, MapPin, Users, Ruler, Building, CheckCircle } from 'lucide-react';
+import { Calendar, MapPin, Users, Ruler, Building } from 'lucide-react';
 
 interface BusinessOperationProps {
   nextStep: () => void;
@@ -222,14 +222,14 @@ const BusinessOperation: React.FC<BusinessOperationProps> = ({
     updateField(field, checked);
   };
 
-  const handleDateGroupChange = (baseField: string, value: string, issuedDate: string, expirationDate: string) => {
-    updateField(baseField, value);
-    updateField(`${baseField}IssuedDate`, issuedDate);
-    updateField(`${baseField}ExpirationDate`, expirationDate);
-  };
+  // const handleDateGroupChange = (baseField: string, value: string, issuedDate: string, expirationDate: string) => {
+  //   updateField(baseField, value);
+  //   updateField(`${baseField}IssuedDate`, issuedDate);
+  //   updateField(`${baseField}ExpirationDate`, expirationDate);
+  // };
 
   const handleRequirementChange = (id: string, field: string, value: string) => {
-    const updatedRequirements = (formData.requirements || []).map(req => 
+    const updatedRequirements = (formData.requirements || []).map((req: { id: string; }) => 
       req.id === id ? { ...req, [field]: value } : req
     );
     updateField('requirements', updatedRequirements);

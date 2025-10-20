@@ -18,9 +18,9 @@ export interface SortConfig {
   direction: 'asc' | 'desc';
 }
 
-interface DataTableProps {
+interface DataTableProps<T extends Record<string, React.ReactNode> = Record<string, React.ReactNode>> {
   columns: Column[];
-  data: any[];
+  data: T[];
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -31,7 +31,7 @@ interface DataTableProps {
   emptyState?: React.ReactNode;
 }
 
-export const DataTable: React.FC<DataTableProps> = ({
+export const DataTable = <T extends Record<string, React.ReactNode> = Record<string, React.ReactNode>>({
   columns,
   data,
   currentPage,
@@ -42,7 +42,7 @@ export const DataTable: React.FC<DataTableProps> = ({
   onSort,
   sortConfig,
   emptyState
-}) => {
+}: DataTableProps<T>) => {
   const getSortIcon = (columnKey: string) => {
     if (!sortConfig || sortConfig.key !== columnKey) {
       return <ArrowUpDown className="h-3 " />;
@@ -75,18 +75,22 @@ export const DataTable: React.FC<DataTableProps> = ({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {data.length > 0 ? (
-              data.map((row, index) => (
-                <tr key={row.id || index} className="hover:bg-gray-50 transition-colors">
-                  {columns.map((column) => (
-                    <td
-                      key={`${row.id}-${column.key}`}
-                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                    >
-                      {row[column.key]}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              data.map((row, index) => {
+                const id = (row as unknown as { id: React.Key }).id;
+                const rowKey: React.Key = typeof id === 'string' || typeof id === 'number' ? id : index;
+                return (
+                  <tr key={rowKey} className="hover:bg-gray-50 transition-colors">
+                    {columns.map((column) => (
+                      <td
+                        key={`${id}-${column.key}`}
+                        className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                      >
+                        {row[column.key]}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })
             ) : (
               <tr>
                 <td colSpan={columns.length} className="px-6 py-24 text-center">

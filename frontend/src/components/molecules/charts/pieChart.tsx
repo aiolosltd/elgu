@@ -21,7 +21,8 @@ const TotalBusinessChart = () => {
             fill="#8884d8"
             dataKey="value"
             label={(props) => {
-              const { name, percent } = props as { name: string; percent: number };
+              const { name, percent } = props as unknown as { name: string; percent: number };
+              // const { name, percent } = props as { name: string; percent: number };
               return `${name} ${(percent * 100).toFixed(0)}%`;
             }}
           >
