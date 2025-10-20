@@ -1,9 +1,9 @@
 // src/components/pages/BusinessManagementPage.tsx
 import React, { useState, useMemo } from 'react';
-import { Button } from '@/components/atoms/Button';
-import { Card } from '@/components/atoms/Card';
-import { Typography } from '@/components/atoms/Typography';
-import { Icon } from '@/components/atoms/Icon';
+import { Button } from '@/components/atoms/button';
+import { Card } from '@/components/atoms/ard';
+import { Typography } from '@/components/atoms/typography';
+import { Icon } from '@/components/atoms/icon';
 
 interface Business {
   id: number;
