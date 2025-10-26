@@ -1,12 +1,789 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\createbusiness\\createbusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\createbusiness\\createbusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\getbusiness\\getbusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\getbusiness\\getbusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\ijwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\ijwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\getbusiness\\getbusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\getbusiness\\getbusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\business.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\idatabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\idatabaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\backend.csproj.backup (1).tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:backend.csproj.backup (1).tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\backend.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:backend.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\businessaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\businessaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\dtos\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\dtos\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\lookup\\getlookupoptions\\getlookupoptionsendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\lookup\\getlookupoptions\\getlookupoptionsendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\lookup\\getlookupoptions\\getlookupoptionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\lookup\\getlookupoptions\\getlookupoptionsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\createbusiness\\createbusinessresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\createbusiness\\createbusinessresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\createbusiness\\createbusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\createbusiness\\createbusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\createbusiness\\createbusinessrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\createbusiness\\createbusinessrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\register\\registerendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\register\\registerendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\register\\registerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\register\\registerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\register\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\register\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\login\\loginendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\login\\loginendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\login\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\login\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\login\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\login\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\login\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\login\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\middleware\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\middleware\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\middleware\\jwtmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\services\\ipasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\services\\ipasswordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\businessrepresentative.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\businessrepresentative.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\cboption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\cboption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\dtos\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\dtos\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\getrepresentative\\getrepresentativeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\getrepresentative\\getrepresentativeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\getrepresentative\\getrepresentativeendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\getrepresentative\\getrepresentativeendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\createrepresentative\\createrepresentativeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\createrepresentative\\createrepresentativeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\createrepresentative\\createrepresentativeendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\createrepresentative\\createrepresentativeendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\createrepresentative\\createrepresentativeresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\createrepresentative\\createrepresentativeresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\businessrepresentative\\createrepresentative\\createrepresentativerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\businessrepresentative\\createrepresentative\\createrepresentativerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\updatebusiness\\updatebusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\updatebusiness\\updatebusinessservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\updatebusiness\\updatebusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\updatebusiness\\updatebusinessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\business\\updatebusiness\\updatebusinessrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\business\\updatebusiness\\updatebusinessrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\features\\authentication\\register\\registerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:features\\authentication\\register\\registerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\common\\models\\businessrequirementinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:common\\models\\businessrequirementinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|c:\\users\\admin\\documents\\github\\project\\elgu\\backend\\backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{FB3F1973-E8BC-4C49-A495-C4E0BFD30428}|backend.csproj|solutionrelative:backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\JwtService.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\JwtService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\JwtService.cs",
+              "RelativeToolTip": "Common\\Services\\JwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:06.831Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IJwtService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IJwtService.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\IJwtService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IJwtService.cs",
+              "RelativeToolTip": "Common\\Services\\IJwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:00.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "backend.csproj",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj",
+              "RelativeDocumentMoniker": "backend.csproj",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj",
+              "RelativeToolTip": "backend.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-21T03:11:30.048Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\DatabaseService.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\DatabaseService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\DatabaseService.cs",
+              "RelativeToolTip": "Common\\Services\\DatabaseService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA1wBcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:34.87Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetBusinessEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\GetBusiness\\GetBusinessEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\GetBusiness\\GetBusinessEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\GetBusiness\\GetBusinessEndpoint.cs",
+              "RelativeToolTip": "Features\\Business\\GetBusiness\\GetBusinessEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:23:12.596Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CreateBusinessService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessService.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\CreateBusiness\\CreateBusinessService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessService.cs",
+              "RelativeToolTip": "Features\\Business\\CreateBusiness\\CreateBusinessService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:23:06.611Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GetBusinessService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\GetBusiness\\GetBusinessService.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\GetBusiness\\GetBusinessService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\GetBusiness\\GetBusinessService.cs",
+              "RelativeToolTip": "Features\\Business\\GetBusiness\\GetBusinessService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:24:24.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Business.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\Business.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\Business.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\Business.cs",
+              "RelativeToolTip": "Common\\Models\\Business.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA6wB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:13:56.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:13:02.941Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-21T03:12:16.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IDatabaseService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IDatabaseService.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\IDatabaseService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IDatabaseService.cs",
+              "RelativeToolTip": "Common\\Services\\IDatabaseService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:25.906Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "backend.csproj.Backup (1).tmp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj.Backup (1).tmp",
+              "RelativeDocumentMoniker": "backend.csproj.Backup (1).tmp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj.Backup (1).tmp",
+              "RelativeToolTip": "backend.csproj.Backup (1).tmp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-21T03:49:30.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "GetLookupOptionsEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Lookup\\GetLookupOptions\\GetLookupOptionsEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Lookup\\GetLookupOptions\\GetLookupOptionsEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Lookup\\GetLookupOptions\\GetLookupOptionsEndpoint.cs",
+              "RelativeToolTip": "Features\\Lookup\\GetLookupOptions\\GetLookupOptionsEndpoint.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowAIAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:26:38.505Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "GetLookupOptionsService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Lookup\\GetLookupOptions\\GetLookupOptionsService.cs",
+              "RelativeDocumentMoniker": "Features\\Lookup\\GetLookupOptions\\GetLookupOptionsService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Lookup\\GetLookupOptions\\GetLookupOptionsService.cs",
+              "RelativeToolTip": "Features\\Lookup\\GetLookupOptions\\GetLookupOptionsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:26:44.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "GetRepresentativeService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeService.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeService.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:26:20.866Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "GetRepresentativeEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeEndpoint.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\GetRepresentative\\GetRepresentativeEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:26:15.223Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "CreateRepresentativeService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeService.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeService.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:25:42.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "CreateRepresentativeEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeEndpoint.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:25:36.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "CreateRepresentativeResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeResponse.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeResponse.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:25:30.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "CreateRepresentativeRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeRequest.cs",
+              "RelativeDocumentMoniker": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeRequest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeRequest.cs",
+              "RelativeToolTip": "Features\\BusinessRepresentative\\CreateRepresentative\\CreateRepresentativeRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:25:22.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "UpdateBusinessService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessService.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\UpdateBusiness\\UpdateBusinessService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessService.cs",
+              "RelativeToolTip": "Features\\Business\\UpdateBusiness\\UpdateBusinessService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:24:54.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "UpdateBusinessEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\UpdateBusiness\\UpdateBusinessEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessEndpoint.cs",
+              "RelativeToolTip": "Features\\Business\\UpdateBusiness\\UpdateBusinessEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:24:46.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "UpdateBusinessRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessRequest.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\UpdateBusiness\\UpdateBusinessRequest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\UpdateBusiness\\UpdateBusinessRequest.cs",
+              "RelativeToolTip": "Features\\Business\\UpdateBusiness\\UpdateBusinessRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:24:39.94Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CreateBusinessEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\CreateBusiness\\CreateBusinessEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessEndpoint.cs",
+              "RelativeToolTip": "Features\\Business\\CreateBusiness\\CreateBusinessEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:23:00.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CreateBusinessResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessResponse.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\CreateBusiness\\CreateBusinessResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessResponse.cs",
+              "RelativeToolTip": "Features\\Business\\CreateBusiness\\CreateBusinessResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:22:55.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CreateBusinessRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessRequest.cs",
+              "RelativeDocumentMoniker": "Features\\Business\\CreateBusiness\\CreateBusinessRequest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Business\\CreateBusiness\\CreateBusinessRequest.cs",
+              "RelativeToolTip": "Features\\Business\\CreateBusiness\\CreateBusinessRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:22:49.485Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "RegisterService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterService.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Register\\RegisterService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterService.cs",
+              "RelativeToolTip": "Features\\Authentication\\Register\\RegisterService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:54.785Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "RegisterEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Register\\RegisterEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterEndpoint.cs",
+              "RelativeToolTip": "Features\\Authentication\\Register\\RegisterEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:48.463Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "RegisterResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterResponse.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Register\\RegisterResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterResponse.cs",
+              "RelativeToolTip": "Features\\Authentication\\Register\\RegisterResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:42.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Register\\RegisterRequest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Register\\RegisterRequest.cs",
+              "RelativeToolTip": "Features\\Authentication\\Register\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:36.134Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LoginService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginService.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Login\\LoginService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginService.cs",
+              "RelativeToolTip": "Features\\Authentication\\Login\\LoginService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:27.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "LoginEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginEndpoint.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Login\\LoginEndpoint.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginEndpoint.cs",
+              "RelativeToolTip": "Features\\Authentication\\Login\\LoginEndpoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:21.358Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Login\\LoginResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginResponse.cs",
+              "RelativeToolTip": "Features\\Authentication\\Login\\LoginResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:14.549Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "Features\\Authentication\\Login\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Features\\Authentication\\Login\\LoginRequest.cs",
+              "RelativeToolTip": "Features\\Authentication\\Login\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:21:06.969Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Middleware\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "Common\\Middleware\\ExceptionMiddleware.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Middleware\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "Common\\Middleware\\ExceptionMiddleware.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwAwAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:46.125Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "IPasswordHasher.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IPasswordHasher.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\IPasswordHasher.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\IPasswordHasher.cs",
+              "RelativeToolTip": "Common\\Services\\IPasswordHasher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:20:18.048Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "PagedResult.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\DTOs\\PagedResult.cs",
+              "RelativeDocumentMoniker": "Common\\DTOs\\PagedResult.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\DTOs\\PagedResult.cs",
+              "RelativeToolTip": "Common\\DTOs\\PagedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:18:06.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "CbOption.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\CbOption.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\CbOption.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\CbOption.cs",
+              "RelativeToolTip": "Common\\Models\\CbOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:17:02.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "BusinessRequirementInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessRequirementInfo.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\BusinessRequirementInfo.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessRequirementInfo.cs",
+              "RelativeToolTip": "Common\\Models\\BusinessRequirementInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:15:50.698Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "BusinessRepresentative.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessRepresentative.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\BusinessRepresentative.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessRepresentative.cs",
+              "RelativeToolTip": "Common\\Models\\BusinessRepresentative.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA4wCIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:15:31.314Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BusinessAddress.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessAddress.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\BusinessAddress.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\BusinessAddress.cs",
+              "RelativeToolTip": "Common\\Models\\BusinessAddress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:14:48.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": ".env",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\.env",
+              "RelativeDocumentMoniker": ".env",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\.env",
+              "RelativeToolTip": ".env",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-21T03:12:04.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "backend.csproj.Backup.tmp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj.Backup.tmp",
+              "RelativeDocumentMoniker": "backend.csproj.Backup.tmp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.csproj.Backup.tmp",
+              "RelativeToolTip": "backend.csproj.Backup.tmp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-21T03:08:07.502Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "backend.http",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.http",
+              "RelativeDocumentMoniker": "backend.http",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\backend.http",
+              "RelativeToolTip": "backend.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-10-21T03:11:40.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "JwtMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Middleware\\JwtMiddleware.cs",
+              "RelativeDocumentMoniker": "Common\\Middleware\\JwtMiddleware.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Middleware\\JwtMiddleware.cs",
+              "RelativeToolTip": "Common\\Middleware\\JwtMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:06:37.053Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "PasswordHasher.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\PasswordHasher.cs",
+              "RelativeDocumentMoniker": "Common\\Services\\PasswordHasher.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Services\\PasswordHasher.cs",
+              "RelativeToolTip": "Common\\Services\\PasswordHasher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:06:13.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\DTOs\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "Common\\DTOs\\ApiResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\DTOs\\ApiResponse.cs",
+              "RelativeToolTip": "Common\\DTOs\\ApiResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:05:53.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Common\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Project\\eLGU\\backend\\Common\\Models\\User.cs",
+              "RelativeToolTip": "Common\\Models\\User.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAIwA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T03:05:36.609Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,1053 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Backend API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Business": {
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBusinessRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBusinessRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBusinessRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBusinessResponseApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBusinessResponseApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBusinessResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/GetBusiness/{businessId}": {
+      "get": {
+        "tags": [
+          "GetBusiness"
+        ],
+        "parameters": [
+          {
+            "name": "businessId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/GetBusiness": {
+      "get": {
+        "tags": [
+          "GetBusiness"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Lookup": {
+      "get": {
+        "tags": [
+          "Lookup"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringStringListDictionaryApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringStringListDictionaryApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringStringListDictionaryApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Lookup/{type}": {
+      "get": {
+        "tags": [
+          "Lookup"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Register": {
+      "post": {
+        "tags": [
+          "Register"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Business": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "businessId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isMain": {
+            "type": "boolean"
+          },
+          "isForeign": {
+            "type": "boolean"
+          },
+          "businessName": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateEstablished": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownershipType": {
+            "type": "string",
+            "nullable": true
+          },
+          "registeredCEO": {
+            "type": "string",
+            "nullable": true
+          },
+          "tradeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isFranchise": {
+            "type": "boolean"
+          },
+          "isMarketStall": {
+            "type": "boolean"
+          },
+          "isCommercialBuilding": {
+            "type": "boolean"
+          },
+          "marketStall": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessBuildingId": {
+            "type": "string",
+            "nullable": true
+          },
+          "buildingSpace": {
+            "type": "string",
+            "nullable": true
+          },
+          "waiverAgreement": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "dateTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "address": {
+            "$ref": "#/components/schemas/BusinessAddress"
+          },
+          "representative": {
+            "$ref": "#/components/schemas/BusinessRepresentative"
+          },
+          "requirements": {
+            "$ref": "#/components/schemas/BusinessRequirementInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BusinessAddress": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "businessId": {
+            "type": "string",
+            "nullable": true
+          },
+          "province": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipality": {
+            "type": "string",
+            "nullable": true
+          },
+          "barangay": {
+            "type": "string",
+            "nullable": true
+          },
+          "subdivision": {
+            "type": "string",
+            "nullable": true
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "buildingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "phaseBlock": {
+            "type": "string",
+            "nullable": true
+          },
+          "lot": {
+            "type": "string",
+            "nullable": true
+          },
+          "landmark": {
+            "type": "string",
+            "nullable": true
+          },
+          "longLat": {
+            "type": "string",
+            "nullable": true
+          },
+          "telNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cellNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "tin": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "dateTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BusinessApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/Business"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BusinessListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Business"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BusinessRepresentative": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "repId": {
+            "type": "string",
+            "nullable": true
+          },
+          "repName": {
+            "type": "string",
+            "nullable": true
+          },
+          "repPosition": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownershipType": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "suffixName": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "civilStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
+            "nullable": true
+          },
+          "telNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cellNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "tin": {
+            "type": "string",
+            "nullable": true
+          },
+          "outsideCity": {
+            "type": "boolean"
+          },
+          "province": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipality": {
+            "type": "string",
+            "nullable": true
+          },
+          "barangay": {
+            "type": "string",
+            "nullable": true
+          },
+          "subdivision": {
+            "type": "string",
+            "nullable": true
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "buildingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "block": {
+            "type": "string",
+            "nullable": true
+          },
+          "lot": {
+            "type": "string",
+            "nullable": true
+          },
+          "landmark": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BusinessRequirementInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "businessId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dtiNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "dtiIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dtiExpiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "secNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "secIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "secExpiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cdaNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cdaIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cdaExpiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "localClearanceNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "localClearanceDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cedulaNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cedulaPlaceIssued": {
+            "type": "string",
+            "nullable": true
+          },
+          "cedulaIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "cedulaAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "boiNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "boiIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "boiExpiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sssNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "sssDateReg": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "pagIbigNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "pagIbigReg": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "phicNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "phicReg": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "pezaRegistered": {
+            "type": "boolean"
+          },
+          "pezaRegNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "pezaIssued": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "pezaExpiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBusinessRequest": {
+        "type": "object",
+        "properties": {
+          "businessName": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateEstablished": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownershipType": {
+            "type": "string",
+            "nullable": true
+          },
+          "registeredCEO": {
+            "type": "string",
+            "nullable": true
+          },
+          "tradeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isFranchise": {
+            "type": "boolean"
+          },
+          "isMarketStall": {
+            "type": "boolean"
+          },
+          "isCommercialBuilding": {
+            "type": "boolean"
+          },
+          "marketStall": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessBuildingId": {
+            "type": "string",
+            "nullable": true
+          },
+          "buildingSpace": {
+            "type": "string",
+            "nullable": true
+          },
+          "waiverAgreement": {
+            "type": "boolean"
+          },
+          "province": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipality": {
+            "type": "string",
+            "nullable": true
+          },
+          "barangay": {
+            "type": "string",
+            "nullable": true
+          },
+          "subdivision": {
+            "type": "string",
+            "nullable": true
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "buildingName": {
+            "type": "string",
+            "nullable": true
+          },
+          "houseNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "phaseBlock": {
+            "type": "string",
+            "nullable": true
+          },
+          "lot": {
+            "type": "string",
+            "nullable": true
+          },
+          "landmark": {
+            "type": "string",
+            "nullable": true
+          },
+          "longLat": {
+            "type": "string",
+            "nullable": true
+          },
+          "telNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "cellNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "faxNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "tin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBusinessResponse": {
+        "type": "object",
+        "properties": {
+          "businessId": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessName": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBusinessResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/CreateBusinessResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/LoginResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringStringListDictionaryApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
