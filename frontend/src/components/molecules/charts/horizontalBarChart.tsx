@@ -1,53 +1,114 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
+"use client"
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import { ChartFooter } from './ChartFooter'
+import type { BaseChartProps, ChartConfig } from "@/types/charts"
 
-const data = [
-  { name: 'Municipality A', Businesses: 420 },
-  { name: 'Municipality B', Businesses: 310 },
-  { name: 'Municipality C', Businesses: 250 },
-  { name: 'Municipality D', Businesses: 190 },
-  { name: 'Municipality E', Businesses: 150 },
-];
+interface GenericHorizontalBarChartProps extends BaseChartProps {
+  chartConfig: ChartConfig;
+  dataKey: string;
+  xAxisKey: string;
+  showGrid?: boolean;
+  showValues?: boolean;
+  showFooter?: boolean;
+  trend?: {
+    value: number;
+    isPositive?: boolean;
+    label?: string;
+  };
+  footerDescription?: string;
+}
 
-const MunicipalityChart = () => {
+export default function GenericHorizontalBarChart({ 
+  data, 
+  height = 250,
+  title,
+  description,
+  chartConfig,
+  dataKey,
+  xAxisKey,
+  showGrid = true,
+  showValues = true,
+  showFooter = false,
+  trend,
+  footerDescription,
+  className = ""
+}: GenericHorizontalBarChartProps) {
   return (
-    <div style={{ width: '100%', height: 350 }}>
-      <ResponsiveContainer>
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 20, right: 40, left: 100, bottom: 10 }}
-          barSize={22}
-        >
-          <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-          <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#6B7280' }} />
-          <YAxis
-            type="category"
-            dataKey="name"
-            axisLine={false}
-            tickLine={false}
-            width={120}
-            tick={{ fontSize: 14, fill: '#374151' }}
-          />
-          <Tooltip
-            cursor={{ fill: '#F3F4F6' }}
-            contentStyle={{
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              border: '1px solid #E5E7EB',
-              borderRadius: '8px',
-            }}
-          />
-          <Bar
-            dataKey="Businesses"
-            fill="#60A5FA"
-            radius={[0, 6, 6, 0]}
-            background={{ fill: '#F3F4F6', radius: 6 }}
-          >
-            <LabelList dataKey="Businesses" position="insideRight" fill="#fff" fontSize={13} />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
+    <Card className={`w-full ${className}`}>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+      </CardHeader>
 
-export default MunicipalityChart;
+      <CardContent>
+        <ChartContainer config={chartConfig} className="w-full" style={{ height: `${height}px` }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data}
+              layout="vertical"
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              barSize={20}
+            >
+              {showGrid && <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />}
+              <XAxis
+                type="number"
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                type="category"
+                dataKey={xAxisKey}
+                axisLine={false}
+                tickLine={false}
+                width={120}
+                tick={{ fontSize: 14 }}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar
+                dataKey={dataKey}
+                fill={`var(--color-${dataKey})`}
+                radius={[0, 6, 6, 0]}
+              >
+                {showValues && (
+                  <LabelList
+                    dataKey={dataKey}
+                    position="insideRight"
+                    fill="#fff"
+                    fontSize={13}
+                  />
+                )}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartContainer>
+      </CardContent>
+
+      {showFooter && (
+        <ChartFooter 
+          trend={trend}
+          description={footerDescription}
+        />
+      )}
+    </Card>
+  )
+}

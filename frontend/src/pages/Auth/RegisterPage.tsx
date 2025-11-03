@@ -132,27 +132,27 @@ const RegisterPage = () => {
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-2 sm:p-4">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 sm:p-6 text-white">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="bg-white p-2 rounded-lg">
-                <img src="/assets/logo.png" alt="Logo" className="h-12" />
+                <img src="/assets/logo.png" alt="Logo" className="h-10 sm:h-12" />
               </div>
               <div>
-                <Typography variant="h2" className="text-white font-bold">BUSINESS PERMIT SYSTEM</Typography>
+                <Typography variant="h2" className="text-white font-bold text-base sm:text-xl">BUSINESS PERMIT SYSTEM</Typography>
                 <Typography variant="small" className="text-blue-100">MUNICIPALITY OF LEGANES, ILOILO</Typography>
               </div>
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-6 sm:space-y-8">
           {/* Registrant Profile */}
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="bg-blue-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <div className="bg-blue-600 p-2 rounded-full">
                 <CheckCircle className="h-5 w-5 text-white" />
               </div>

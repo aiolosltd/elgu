@@ -1,6 +1,6 @@
 // components/molecules/stats-summary/index.tsx
 import * as React from "react"
-import { Card } from "@/components/atoms/card"
+import { Card, CardHeader } from "@/components/ui/card"
 import { Typography } from "@/components/atoms/typography"
 
 export interface StatsSummaryProps
@@ -23,10 +23,12 @@ const StatsSummary = React.forwardRef<HTMLDivElement, StatsSummaryProps>(
     }
 
     return (
-      <Card ref={ref} variant="gradient" className={className} {...props}>
-        <Typography as="h2" variant="large" weight="semibold" className="mb-4 text-gray-800">
+      <Card ref={ref} className={className} {...props}>
+        <CardHeader>
+        <Typography as="h2" variant="large" weight="semibold">
           {title}
         </Typography>
+        </CardHeader>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">

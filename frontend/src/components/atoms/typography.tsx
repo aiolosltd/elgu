@@ -5,14 +5,14 @@ import { cn } from "@/lib/utils"
 const typographyVariants = cva("text-foreground", {
   variants: {
     variant: {
-      h1: "text-4xl font-bold tracking-tight",
-      h2: "text-3xl font-semibold tracking-tight",
-      h3: "text-2xl font-semibold tracking-tight",
-      h4: "text-xl font-semibold tracking-tight",
+      h1: "text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight",
+      h2: "text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight",
+      h3: "text-lg sm:text-xl md:text-2xl font-semibold tracking-tight",
+      h4: "text-base sm:text-lg md:text-xl font-semibold tracking-tight",
       p: "leading-7",
-      lead: "text-xl text-muted-foreground",
+      lead: "text-lg sm:text-xl text-muted-foreground",
       large: "text-lg font-semibold",
-      medium: "text-md font-medium",
+      medium: "text-base font-medium",
       small: "text-sm font-medium leading-none",
       muted: "text-sm text-muted-foreground",
     },

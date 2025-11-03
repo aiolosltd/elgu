@@ -1,183 +1,171 @@
-import type {
-  Business,
-  BusinessDetails,
-} from '@/types/index';
+// hooks/useBusinessData.ts
+import { useState, useEffect, useCallback } from 'react';
+import { BusinessService } from '@/services/businessService';
+import type { 
+  Business, 
+  BusinessDetails, 
+  BusinessMapDto, 
+  BusinessMapStats,
+  MapFilterRequest 
+} from '@/types/business';
 
-// Shorter dummy data
-const dummyBusinesses: Business[] = [
-  {
-    businessid_: 'BIZ001',
-    businessname_: 'Leganes General Store',
-    repname_: 'Juan Dela Cruz',
-    longlat_: '10.7868,122.5894',
-    barangay_: 'Poblacion',
-    municipality_: 'Leganes',
-    province_: 'Iloilo',
-    street_: 'Rizal Street',
-    houseno_: '123',
-    dtiexpiry_: '2024-12-31',
-    secexpiry_: '2025-12-31',
-    cdaexpiry_: '2024-12-31'
-  },
-  {
-    businessid_: 'BIZ002',
-    businessname_: 'Napnud Agri Supply',
-    repname_: 'Maria Santos',
-    longlat_: '10.7912,122.5921',
-    barangay_: 'Napnud',
-    municipality_: 'Leganes',
-    province_: 'Iloilo',
-    street_: 'Luna Street',
-    houseno_: '456',
-    dtiexpiry_: '2026-01-15',
-    secexpiry_: '2026-12-31',
-    cdaexpiry_: '2026-12-31'
-  },
-  {
-    businessid_: 'BIZ003',
-    businessname_: 'Cagamutan Hardware',
-    repname_: 'Pedro Reyes',
-    longlat_: '10.7945,122.5956',
-    barangay_: 'Cagamutan Sur',
-    municipality_: 'Leganes',
-    province_: 'Iloilo',
-    street_: 'Burgos Street',
-    houseno_: '789',
-    dtiexpiry_: '2023-12-01',
-    secexpiry_: '2023-12-01',
-    cdaexpiry_: '2023-12-01'
-  }
-];
+// Hook for all businesses
+export const useBusinessData = () => {
+  const [businesses, setBusinesses] = useState<Business[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const dummyBusinessDetails: { [key: string]: BusinessDetails } = {
-  'BIZ001': {
-    businessInfo: {
-      businessid_: 'BIZ001',
-      ismain_: true,
-      businessname_: 'Leganes General Store',
-      dateestablished_: '2010-05-15',
-      ownershiptype_: 'Single Proprietorship',
-      registeredceo_: 'Juan Dela Cruz',
-      tradename_: 'LGS',
-      status_: true
-    },
-    address: {
-      province_: 'Iloilo',
-      municipality_: 'Leganes',
-      barangay_: 'Poblacion',
-      street_: 'Rizal Street',
-      houseno_: '123',
-      longlat_: '10.7868,122.5894',
-      cellno_: '09171234567',
-      email_: 'lgs@email.com'
-    },
-    representative: {
-      repname_: 'Juan Dela Cruz',
-      repposition_: 'Owner',
-      cellno_: '09171234567',
-      email_: 'juan@email.com'
-    },
-    requirements: {
-      dtino_: 'DTI123456',
-      dtiexpiry_: '2024-12-31',
-      secno_: 'SEC789012',
-      secexpiry_: '2025-12-31',
-      cdano_: 'CDA345678',
-      cdaexpiry_: '2024-12-31'
+  const fetchBusinesses = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await BusinessService.getAllBusinesses();
+      setBusinesses(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch businesses');
+    } finally {
+      setLoading(false);
     }
-  },
-  'BIZ002': {
-    businessInfo: {
-      businessid_: 'BIZ002',
-      ismain_: true,
-      businessname_: 'Napnud Agri Supply',
-      dateestablished_: '2018-03-20',
-      ownershiptype_: 'Single Proprietorship',
-      registeredceo_: 'Maria Santos',
-      tradename_: 'NAS',
-      status_: true
-    },
-    address: {
-      province_: 'Iloilo',
-      municipality_: 'Leganes',
-      barangay_: 'Napnud',
-      street_: 'Luna Street',
-      houseno_: '456',
-      longlat_: '10.7912,122.5921',
-      cellno_: '09176543210',
-      email_: 'nas@email.com'
-    }
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchBusinesses();
+  }, [fetchBusinesses]);
+
+  return { businesses, loading, error, refetch: fetchBusinesses };
 };
 
-// Business Service
-export class BusinessService {
-  static async getAllBusinesses(): Promise<Business[]> {
-    return new Promise(resolve => {
-      setTimeout(() => resolve(dummyBusinesses), 500);
-    });
-  }
+// Hook for map businesses
+export const useMapBusinesses = (complianceFilter: string = 'all') => {
+  const [businesses, setBusinesses] = useState<BusinessMapDto[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  static async getBusinessDetails(businessId: string): Promise<BusinessDetails> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const details = dummyBusinessDetails[businessId];
-        if (details) {
-          resolve(details);
-        } else {
-          reject(new Error('Business not found'));
-        }
-      }, 500);
-    });
-  }
-
-  static async getFilteredBusinesses(complianceFilter: string): Promise<Business[]> {
-    const allBusinesses = await this.getAllBusinesses();
-    const today = new Date();
-
-    switch (complianceFilter.toLowerCase()) {
-      case 'all':
-        // Show everything: compliant, noncompliant, and pending
-        return allBusinesses;
-
-      case 'compliant':
-        return allBusinesses.filter(business => {
-          const dtiExpiry = business.dtiexpiry_ ? new Date(business.dtiexpiry_) : today;
-          const secExpiry = business.secexpiry_ ? new Date(business.secexpiry_) : today;
-          const cdaExpiry = business.cdaexpiry_ ? new Date(business.cdaexpiry_) : today;
-          const pendingThreshold = new Date(today);
-          pendingThreshold.setDate(pendingThreshold.getDate() + 30);
-
-          // All expiry dates are beyond the pending threshold → compliant
-          return dtiExpiry >= pendingThreshold && secExpiry >= pendingThreshold && cdaExpiry >= pendingThreshold;
-        });
-
-      case 'noncompliant':
-        return allBusinesses.filter(business => {
-          const dtiExpiry = business.dtiexpiry_ ? new Date(business.dtiexpiry_) : today;
-          const secExpiry = business.secexpiry_ ? new Date(business.secexpiry_) : today;
-          const cdaExpiry = business.cdaexpiry_ ? new Date(business.cdaexpiry_) : today;
-
-          // Any expiry date is already past → noncompliant
-          return dtiExpiry < today || secExpiry < today || cdaExpiry < today;
-        });
-
-      case 'pending':
-        return allBusinesses.filter(business => {
-          const dtiExpiry = business.dtiexpiry_ ? new Date(business.dtiexpiry_) : today;
-          const secExpiry = business.secexpiry_ ? new Date(business.secexpiry_) : today;
-          const cdaExpiry = business.cdaexpiry_ ? new Date(business.cdaexpiry_) : today;
-          const pendingThreshold = new Date(today);
-          pendingThreshold.setDate(pendingThreshold.getDate() + 30);
-
-          // Within next 30 days (not yet expired but close) → pending
-          return !(dtiExpiry >= pendingThreshold && secExpiry >= pendingThreshold && cdaExpiry >= pendingThreshold) &&
-            (dtiExpiry >= today || secExpiry >= today || cdaExpiry >= today);
-        });
-
-      default:
-        return allBusinesses;
+  const fetchMapBusinesses = useCallback(async (filter: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const filterRequest: MapFilterRequest = { complianceFilter: filter };
+      const data = await BusinessService.getBusinessesForMap(filterRequest);
+      setBusinesses(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch map businesses');
+    } finally {
+      setLoading(false);
     }
+  }, []);
 
-  }
-}
+  useEffect(() => {
+    fetchMapBusinesses(complianceFilter);
+  }, [complianceFilter, fetchMapBusinesses]);
+
+  return { 
+    businesses, 
+    loading, 
+    error, 
+    refetch: () => fetchMapBusinesses(complianceFilter) 
+  };
+};
+
+// Hook for business details
+export const useBusinessDetails = (businessId: string | undefined) => {
+  const [businessDetails, setBusinessDetails] = useState<BusinessDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchBusinessDetails = useCallback(async (id: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await BusinessService.getBusinessDetails(id);
+      setBusinessDetails(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch business details');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (businessId) {
+      fetchBusinessDetails(businessId);
+    } else {
+      setLoading(false);
+      setError('No business ID provided');
+    }
+  }, [businessId, fetchBusinessDetails]);
+
+  return { 
+    businessDetails, 
+    loading, 
+    error, 
+    refetch: () => businessId && fetchBusinessDetails(businessId) 
+  };
+};
+
+// Hook for business statistics
+export const useBusinessStats = () => {
+  const [stats, setStats] = useState<BusinessMapStats>({
+    total: 0,
+    compliant: 0,
+    pending: 0,
+    nonCompliant: 0
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchStats = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await BusinessService.getBusinessMapStats();
+      setStats(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch business statistics');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
+
+  return { stats, loading, error, refetch: fetchStats };
+};
+
+// Hook for business compliance
+export const useBusinessCompliance = (businessId: string | undefined) => {
+  const [compliance, setCompliance] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchCompliance = useCallback(async (id: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await BusinessService.getBusinessCompliance(id);
+      setCompliance(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch compliance status');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (businessId) {
+      fetchCompliance(businessId);
+    } else {
+      setLoading(false);
+      setError('No business ID provided');
+    }
+  }, [businessId, fetchCompliance]);
+
+  return { 
+    compliance, 
+    loading, 
+    error, 
+    refetch: () => businessId && fetchCompliance(businessId) 
+  };
+};

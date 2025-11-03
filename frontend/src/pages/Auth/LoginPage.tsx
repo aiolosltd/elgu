@@ -16,12 +16,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-8 ">
-        {/* <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md"> */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <div className="flex flex-col items-center">
-          <img src="/assets/logo.png" alt="Logo" className="h-40 mb-4" />
-          <h1 className="text-2xl font-bold">Welcome back!</h1>
+          <img src="/assets/logo.png" alt="Logo" className="h-24 sm:h-32 mb-4" />
+          <h1 className="text-2xl font-bold text-center">Welcome back!</h1>
         </div>
 
         <form className="space-y-6">
@@ -81,11 +80,11 @@ const LoginPage = () => {
           </Link>
         </div> */}
       </div>
-     <div className="absolute bottom-0 w-full relative top-7">
+     <div className="hidden md:block absolute bottom-0 w-full">
         <img
           src="/assets/cityhall-desktop.png"
           alt="Footer illustration"
-          className="w-full"
+          className="w-full object-cover"
         />
       </div>
     </div>

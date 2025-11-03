@@ -12,14 +12,14 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "masked-icon.svg"],
       manifest: {
-        name: "Campus Newsletter",
-        short_name: "CampusNews",
-        description: "Campus Newsletter and Forums App",
-        theme_color: "#ffffff",
+        name: "Business Permit ",
+        short_name: "BizDash",
+        description: "A dashboard for monitoring business compliance and performance.",
+        theme_color: "#4F46E5",
         background_color: "#ffffff",
         start_url: "/",
         display: "standalone",
-        categories: ["news", "education", "social"],
+        categories: ["business", "dashboard", "analytics"],
         icons: [
           {
             src: "pwa-192x192.png",
@@ -78,5 +78,9 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+   server: {
+    host: true, 
+    port: 5173, 
   },
 });

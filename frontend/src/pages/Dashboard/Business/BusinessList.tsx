@@ -1,259 +1,286 @@
+// BusinessManagementPage.tsx
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/atoms/button';
-import { Card } from '@/components/atoms/card';
-import { Typography } from '@/components/atoms/typography';
-// import { Icon } from '@/components/atoms/icon';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+// import { Input } from '@/components/ui/input';
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
+import { DataTable } from '@/components/molecules/tables/datatables';
 import { StatCard } from '@/components/molecules/card/statCard';
-import { DataTable } from '@/components/molecules/tables/datatables'
-import { Download, Plus, CheckCircle, Clock, XCircle, MapPin } from 'lucide-react';
-import * as XLSX from 'xlsx';
+import { SearchSelect } from '@/components/atoms/input/search-select';
+import { LabeledInput } from '@/components/molecules/labeledInput';
+import { 
+  Plus, 
+  CheckCircle, 
+  XCircle, 
+  MapPin, 
+  RefreshCw, 
+  Eye, 
+  Edit,
+} from 'lucide-react';
+// import ExcelJS from 'exceljs';
+// import { saveAs } from 'file-saver';
+import { useBusiness } from '@/hooks/useBusiness';
+import type { Business } from '@/types';
 
-export interface Business {
-  id: number;
+// Import ColumnDef individually
+import type { ColumnDef } from "@tanstack/react-table";
+
+// Define the business type for the table
+type BusinessTable = {
+  id: string;
   name: string;
   type: string;
   tradeName: string;
   email: string;
-  status: 'active' | 'pending' | 'inactive' | 'expired';
-  registrationDate: string;
-  revenue: number;
-  employees: number;
-  location: string;
   owner: string;
-}
+  status: 'active' | 'inactive';
+  registrationDate: string;
+  location: string;
+};
 
 const BusinessManagementPage: React.FC = () => {
   const navigate = useNavigate();
-  // const [loading, setLoading] = useState(false);
+  const { businesses, loading, refetch } = useBusiness();
+
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
-  const [selectedStatus] = useState<string>('all');
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
-  // Dummy data
-  const [businesses] = useState<Business[]>(
-    Array.from({ length: 45 }, (_, i) => ({
-      id: i + 1,
-      name: `Business ${i + 1}`,
-      type: 'Retail',
-      tradeName: `Trade ${i + 1}`,
-      email: `biz${i + 1}@example.com`,
-      status: i % 2 === 0 ? 'active' : 'pending',
-      registrationDate: '2024-01-15',
-      revenue: 150000 + i * 500,
-      employees: 10 + i,
-      location: 'Iloilo',
-      owner: `Owner ${i + 1}`,
-    }))
-  );
-
-  const handleSort = (key: string) => {
-    setSortConfig(current => ({
-      key,
-      direction: current?.key === key && current.direction === 'asc' ? 'desc' : 'asc',
-    }));
-  };
-
-  const filteredData = useMemo(() => {
-    let result = businesses;
-
-    if (selectedStatus !== 'all') {
-      result = result.filter(b => b.status === selectedStatus);
-    }
-
-    if (searchTerm) {
-      const lowerSearch = searchTerm.toLowerCase();
-      result = result.filter(b =>
-        Object.values(b).some(val =>
-          String(val).toLowerCase().includes(lowerSearch)
-        )
-      );
-    }
-
-    if (sortConfig) {
-      result = [...result].sort((a, b) => {
-        const aValue = a[sortConfig.key as keyof Business];
-        const bValue = b[sortConfig.key as keyof Business];
-        if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
-        if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
-        return 0;
-      });
-    }
-
-    return result;
-  }, [businesses, searchTerm, selectedStatus, sortConfig]);
-
-  const totalPages = Math.ceil(filteredData.length / pageSize);
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
-
-  // 📥 DOWNLOAD FUNCTIONS
-  const handleDownload = (type: string) => {
-    setShowDropdown(false);
-
-    if (type === 'CSV') {
-      const headers = Object.keys(businesses[0]);
-      const csv = [
-        headers.join(','),
-        ...filteredData.map(obj =>
-          headers.map(h => JSON.stringify(obj[h as keyof Business] ?? '')).join(',')
-        ),
-      ].join('\n');
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `businesses_${new Date().toISOString().split('T')[0]}.csv`;
-      link.click();
-    }
-
-    if (type === 'Excel') {
-      const worksheet = XLSX.utils.json_to_sheet(filteredData);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Businesses');
-      XLSX.writeFile(workbook, 'businesses.xlsx');
-    }
-
-
-  };
-
-  // TABLE COLUMNS
-  const tableColumns = [
-    { key: 'name', label: 'Business Name', sortable: true },
-    { key: 'type', label: 'Type', sortable: true },
-    { key: 'tradeName', label: 'Tradename', sortable: true },
-    { key: 'email', label: 'Email', sortable: true },
-    { key: 'owner', label: 'Owner', sortable: true },
+  // Status options for the dropdown
+  const statusOptions = [
+    { value: 'all', label: 'All Status' },
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' },
   ];
 
-  // 📋 TABLE DATA
-  const tableData = paginatedData.map(b => ({
-    id: b.id,
-    name: b.name,
-    type: b.type,
-    tradeName: b.tradeName,
-    email: b.email,
-    owner: b.owner,
-  }));
+  const handleView = (businessId: string) => {
+    navigate(`/business/${businessId}/view`);
+  };
 
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className=" mx-auto space-y-6">
+  const handleEdit = (businessId: string) => {
+    navigate(`/business-form/${businessId}`);
+  };
 
-        {/* 🔹 Header */}
-        <Card variant="default" padding="lg" className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-          <div>
-            <Typography variant="h1" as="h1" weight="bold" className="text-2xl text-gray-900 mb-1">
-              Business Management
-            </Typography>
-            <Typography variant="p" className="text-gray-600">
-              Manage and monitor all registered businesses.
-            </Typography>
-          </div>
-          <div className="flex items-center space-x-3">
-            {/* Download Dropdown */}
-            <div className="relative">
-              <Button variant="outline" onClick={() => setShowDropdown(!showDropdown)} className="flex items-center gap-2">
-                <Download size={16} /> Download
-              </Button>
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg">
-                  {['CSV', 'Excel'].map(type => (
-                    <button
-                      key={type}
-                      onClick={() => handleDownload(type)}
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
-                    >
-                      {type}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+  const handleStatusChange = (value: string) => {
+    setSelectedStatus(value);
+  };
 
-            {/* Add Button */}
+  const handleAddBusiness = () => navigate('/business-form');
+
+  // Transform backend data
+  const transformedBusinesses = useMemo((): BusinessTable[] => {
+    return (businesses || []).map((business: Business, index: number) => ({
+      id: business.businessid_ || `biz-${index}`,
+      name: business.businessname_ || 'Unnamed Business',
+      type: business.ownershiptype_ || 'N/A',
+      tradeName: business.tradename_ || 'N/A',
+      email: business.email_ || 'No email',
+      status: business.status_ ? 'active' : 'inactive',
+      registrationDate: business.datetimestamp ? new Date(business.datetimestamp).toISOString().split('T')[0] : 'N/A',
+      location: [business.province_, business.municipality_, business.barangay_].filter(Boolean).join(', ') || 'N/A',
+      owner: business.registeredceo_ || 'N/A',
+    }));
+  }, [businesses]);
+
+  // Filter data based on status
+  const filteredData = useMemo(() => {
+    if (selectedStatus === 'all') return transformedBusinesses;
+    return transformedBusinesses.filter(business => business.status === selectedStatus);
+  }, [transformedBusinesses, selectedStatus]);
+
+  // Stats calculation
+  const stats = useMemo(() => ({
+    total: transformedBusinesses.length,
+    active: transformedBusinesses.filter(b => b.status === 'active').length,
+    inactive: transformedBusinesses.filter(b => b.status === 'inactive').length,
+  }), [transformedBusinesses]);
+
+  // Define columns for shadcn DataTable
+  const columns: ColumnDef<BusinessTable>[] = [
+    {
+      accessorKey: "name",
+      header: "Business Name",
+    },
+    {
+      accessorKey: "type",
+      header: "Type",
+    },
+    {
+      accessorKey: "tradeName",
+      header: "Tradename",
+    },
+    {
+      accessorKey: "email",
+      header: "Email",
+    },
+    {
+      accessorKey: "owner",
+      header: "Owner",
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const status = row.getValue("status") as string;
+        return (
+          <Badge 
+            variant={status === 'active' ? 'default' : 'secondary'}
+            className={`
+              ${status === 'active' 
+                ? 'bg-green-100 text-green-800 hover:bg-green-100' 
+                : 'bg-red-100 text-red-800 hover:bg-red-100'
+              }
+            `}
+          >
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </Badge>
+        );
+      },
+    },
+    {
+      accessorKey: "registrationDate",
+      header: "Registration Date",
+    },
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const business = row.original;
+        
+        return (
+          <div className="flex space-x-2">
             <Button
-              onClick={() => navigate('/business-form')}
-              variant="default" className="flex items-center gap-2">
-              <Plus size={16} /> Add
+              variant="success"
+              size="sm"
+              onClick={() => handleView(business.id)}
+              className="flex items-center gap-1"
+            >
+              <Eye className="h-4 w-4" />
+              View
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handleEdit(business.id)}
+              className="flex items-center gap-1"
+            >
+              <Edit className="h-4 w-4" />
+              Edit
             </Button>
           </div>
+        );
+      },
+    },
+  ];
+
+  // ... rest of your component (export functions, etc.)
+
+  return (
+    <div className="min-h-screen  p-6">
+      <div className="mx-auto space-y-6">
+        {/* Header Card */}
+        <Card>
+          <CardHeader>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+              <div>
+                <CardTitle>Business Management</CardTitle>
+                <CardDescription>
+                  Manage and monitor all registered businesses.
+                </CardDescription>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <Button variant="outline" onClick={refetch} disabled={loading}>
+                  <RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                  Refresh
+                </Button>
+
+                <Button  variant="primary" onClick={handleAddBusiness}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Business
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
         </Card>
 
-
-        {/* 🔹 Stat Cards Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <StatCard
             title="Total Businesses"
-            value="100"
+            value={String(stats.total)}
             icon={MapPin}
             color="blue"
             description="All registered"
           />
           <StatCard
             title="Active"
-            value="100"
+            value={String(stats.active)}
             icon={CheckCircle}
             color="green"
             description="Currently operational"
           />
           <StatCard
-            title="Pending"
-            value="100"
-            // value={stats.pending}
-            icon={Clock}
-            color="yellow"
-            description="Awaiting approval"
-          />
-          <StatCard
             title="Inactive"
-            value="100"
-            // value={stats.inactive}
+            value={String(stats.inactive)}
             icon={XCircle}
             color="red"
             description="No longer active"
           />
         </div>
 
+        {/* Filters Card */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+              <div className="w-full lg:w-[300px]">
+                <LabeledInput
+                  id="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search businesses..."
+                  variant="rounded"
+                />
+              </div>
 
+              <div className="w-full lg:w-[200px]">
+                <SearchSelect
+                  label=""
+                  id="status-filter"
+                  value={selectedStatus}
+                  onChange={handleStatusChange}
+                  options={statusOptions}
+                  placeholder="Filter by status"
+                />
+              </div>
 
-
-        {/* 🔹 Search */}
-        <Card variant="default" padding="md">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-3 lg:space-y-0">
-            <input
-              type="text"
-              placeholder="Search businesses..."
-              className="w-full lg:w-[300px] border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
-            />
-            <Typography variant="p" className="text-gray-600">
-              Showing {paginatedData.length} of {filteredData.length} results
-            </Typography>
-          </div>
+              <div className="text-sm text-gray-600">
+                Showing {filteredData.length} of {transformedBusinesses.length} businesses
+                {selectedStatus !== 'all' && ` (Filtered by: ${statusOptions.find(opt => opt.value === selectedStatus)?.label})`}
+              </div>
+            </div>
+          </CardContent>
         </Card>
 
-        {/* 🔹 Table */}
-        <DataTable
-          columns={tableColumns}
-          data={tableData}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          pageSize={pageSize}
-          onPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
-          onSort={handleSort}
-          sortConfig={sortConfig}
-        />
+        {/* Data Table */}
+        <Card>
+          <CardContent className="pt-6">
+            <DataTable 
+              columns={columns} 
+              data={filteredData}
+              searchKey="name"
+              searchPlaceholder="Search businesses..."
+              showPagination={true}
+              pageSize={10}
+            />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

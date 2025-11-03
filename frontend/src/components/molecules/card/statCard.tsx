@@ -1,93 +1,143 @@
-// components/molecules/stat-card/index.tsx
-import * as React from "react"
-import { Card } from "@/components/atoms/card"
-import { Typography } from "@/components/atoms/typography"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+// components/StatCard.tsx
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-const statCardVariants = cva("", {
-    variants: {
-        layout: {
-            default: "text-blue-600",
-            trend: "flex items-center text-sm",
-        },
-        color: {
-            default: "text-gray-600",
-            blue: "text-blue-600",
-            green: "text-green-600",
-            yellow: "text-yellow-600",
-            red: "text-red-600",
-            purple: "text-purple-600",
-            orange : "text-orange-600"
-        }
-    },
-    defaultVariants: {
-        layout: "default",
-        color: "blue",
-    },
-})
-
-export interface StatCardProps
-    extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof statCardVariants> {
-    title: string
-    value: string | number
-    color?: "blue" | "green" | "yellow" | "red" | "purple" | "orange"
-    icon: React.ComponentType<{ className?: string }>
-    description?: string
-    trend?: {
-        value: number
-        isPositive: boolean
-    }
+interface StatCardProps {
+  title: string;
+  value: number | string;
+  icon: React.ComponentType<any>;
+  color: "blue" | "green" | "yellow" | "red" | "purple" | "gray";
+  description?: string;
+  trend?: {
+    value: number;
+    isPositive: boolean;
+  };
 }
 
-const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
-    ({ className, title, value, icon: Icon, description, trend, color, layout, ...props }, ref) => {
-        const bgColorClass = {
-            blue: "bg-blue-100",
-            green: "bg-green-100",
-            yellow: "bg-yellow-100",
-            red: "bg-red-100",
-            purple: "bg-purple-100",
-            orange : "bg-orange-100"
-        }[color || "blue"]
-
-        const trendColorClass = trend?.isPositive ? "text-green-600" : "text-red-600"
-
-        return (
-            <Card ref={ref} className={cn("hover:shadow-xl transition-shadow duration-300", className)} {...props}>
-                <div className="flex items-center justify-between">
-                    <div>
-                        <Typography variant="small" weight="medium" className="text-gray-600 mb-2">
-                            {title}
-                        </Typography>
-                        <Typography variant="h2" weight="bold" className={statCardVariants({ color, layout })}>
-                            {value}
-                        </Typography>
-                        {description && (
-                            <Typography variant="small" className="text-gray-600 mt-2">
-                                {description}
-                            </Typography>
-                        )}
-                        {trend && (
-                            <div className={cn("flex items-center mt-2", statCardVariants({ layout: "trend" }))}>
-                                <span className={trendColorClass}>
-                                    {trend.isPositive ? '↗️' : '↘️'}
-                                </span>
-                                <Typography variant="small" className={cn("ml-1", trendColorClass)}>
-                                    {trend.value >= 0 ? '+' : ''}{trend.value}% from last month
-                                </Typography>
-                            </div>
-                        )}
-                    </div>
-                    <div className={cn("p-3 rounded-full", bgColorClass)}>
-                        <Icon className={cn("w-6 h-6", statCardVariants({ color }))} />
-                    </div>
-                </div>
-            </Card>
-        )
+const colorConfig = {
+  blue: {
+    bg: "bg-blue-50 dark:bg-blue-950/20",
+    border: "border-blue-200 dark:border-blue-800",
+    icon: "text-blue-600 dark:text-blue-400",
+    value: "text-blue-900 dark:text-blue-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
     }
-)
-StatCard.displayName = "StatCard"
+  },
+  green: {
+    bg: "bg-green-50 dark:bg-green-950/20",
+    border: "border-green-200 dark:border-green-800",
+    icon: "text-green-600 dark:text-green-400",
+    value: "text-green-900 dark:text-green-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
+    }
+  },
+  yellow: {
+    bg: "bg-yellow-50 dark:bg-yellow-950/20",
+    border: "border-yellow-200 dark:border-yellow-800",
+    icon: "text-yellow-600 dark:text-yellow-400",
+    value: "text-yellow-900 dark:text-yellow-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
+    }
+  },
+  red: {
+    bg: "bg-red-50 dark:bg-red-950/20",
+    border: "border-red-200 dark:border-red-800",
+    icon: "text-red-600 dark:text-red-400",
+    value: "text-red-900 dark:text-red-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
+    }
+  },
+  purple: {
+    bg: "bg-purple-50 dark:bg-purple-950/20",
+    border: "border-purple-200 dark:border-purple-800",
+    icon: "text-purple-600 dark:text-purple-400",
+    value: "text-purple-900 dark:text-purple-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
+    }
+  },
+  gray: {
+    bg: "bg-gray-50 dark:bg-gray-800",
+    border: "border-gray-200 dark:border-gray-700",
+    icon: "text-gray-600 dark:text-gray-400",
+    value: "text-gray-900 dark:text-gray-100",
+    trend: {
+      positive: "text-green-600 dark:text-green-400",
+      negative: "text-red-600 dark:text-red-400"
+    }
+  }
+};
 
-export { StatCard }
+export function StatCard({ 
+  title, 
+  value, 
+  icon: Icon, 
+  color, 
+  description, 
+  trend 
+}: StatCardProps) {
+  const config = colorConfig[color];
+
+  return (
+    <Card className={`border-2 transition-all hover:shadow-md`}>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            {/* Title and Icon */}
+            <div className="flex items-center gap-2 mb-2">
+              <Icon className={`h-4 w-4 ${config.icon}`} />
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                {title}
+              </p>
+            </div>
+
+            {/* Value */}
+            <div className="flex items-baseline gap-2 mb-1">
+              <h3 className={`text-2xl font-bold ${config.value}`}>
+                {typeof value === 'number' ? value.toLocaleString() : value}
+              </h3>
+              
+              {/* Trend Badge */}
+              {trend && (
+                <Badge 
+                  variant="outline" 
+                  className={`
+                    text-xs font-medium
+                    ${trend.isPositive ? config.trend.positive : config.trend.negative}
+                    border-current
+                  `}
+                >
+                  <div className="flex items-center gap-1">
+                    {trend.isPositive ? (
+                      <TrendingUp className="h-3 w-3" />
+                    ) : (
+                      <TrendingDown className="h-3 w-3" />
+                    )}
+                    {trend.isPositive ? '+' : ''}{trend.value}%
+                  </div>
+                </Badge>
+              )}
+            </div>
+
+            {/* Description */}
+            {description && (
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {description}
+              </p>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

@@ -12,6 +12,11 @@ export interface NewsItem {
   link: string;
 }
 
+// Lookup Options Interface
+export interface LookupOptions {
+  [key: string]: string[];
+}
+
 
 
 // Dashboard Statistics Interface
@@ -28,6 +33,12 @@ export interface DashboardStats {
 export interface Business {
   businessid_: string;
   businessname_: string;
+  ownershiptype_: string;
+  tradename_?: string;
+  email_: string;
+  registeredceo_: string;
+  status_: boolean;
+  datetimestamp: string;
   repname_: string;
   longlat_: string;
   barangay_: string;
@@ -39,6 +50,15 @@ export interface Business {
   secexpiry_: string | null;
   cdaexpiry_: string | null;
 }
+
+export interface BusinessResponse {
+  data: Business[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
 
  export interface MapsProps {
   complianceFilter?: string;

@@ -1,17 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/components/ui/button";
 import { NavLink, Link } from "react-router-dom";
 import { 
   Menu, Cloud, Wind, Sun, CloudRain, CloudDrizzle, Moon, Loader2 
 } from "lucide-react";
 import { fetchWeather } from "@/services/api/weatherService";
 import type { WeatherData } from '@/types';
+import { useTheme } from "@/context/ThemeContext";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -51,21 +52,21 @@ const Header = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Get appropriate weather icon
+  // Get appropriate weather icon with dark mode support
   const getWeatherIcon = () => {
-    if (weatherLoading) return <Loader2 className="h-5 w-5 text-gray-500 animate-spin" />;
-    if (!weatherData || weatherData.temperature === 'N/A') return <Cloud className="h-5 w-5 text-gray-500" />;
+    if (weatherLoading) return <Loader2 className="h-5 w-5 text-muted-foreground animate-spin" />;
+    if (!weatherData || weatherData.temperature === 'N/A') return <Cloud className="h-5 w-5 text-muted-foreground" />;
 
     const condition = weatherData.description.toLowerCase();
     if (condition.includes("rain") || condition.includes("shower")) return <CloudRain className="h-5 w-5 text-blue-500" />;
     if (condition.includes("drizzle") || condition.includes("mist")) return <CloudDrizzle className="h-5 w-5 text-blue-400" />;
-    if (condition.includes("cloud") || condition.includes("overcast")) return <Cloud className="h-5 w-5 text-gray-500" />;
-    if (condition.includes("wind") || condition.includes("breeze")) return <Wind className="h-5 w-5 text-gray-600" />;
+    if (condition.includes("cloud") || condition.includes("overcast")) return <Cloud className="h-5 w-5 text-muted-foreground" />;
+    if (condition.includes("wind") || condition.includes("breeze")) return <Wind className="h-5 w-5 text-muted-foreground" />;
     if (condition.includes("clear") || condition.includes("sunny")) return <Sun className="h-5 w-5 text-yellow-500" />;
     return <Sun className="h-5 w-5 text-yellow-500" />;
   };
 
-  // Get weather display values
+  // Get weather display values with dark mode support
   const getWeatherDisplay = () => {
     if (weatherLoading) {
       return { temperature: "Loading...", condition: "Loading weather...", windSpeed: "--" };
@@ -77,21 +78,26 @@ const Header = () => {
   };
 
   const weatherDisplay = getWeatherDisplay();
-
-  // Toggle dark mode
-  useEffect(() => {
-    if (darkMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [darkMode]);
+  const isDarkMode = theme === 'dark';
 
   return (
-    <header className="flex h-20 items-center justify-between px-4 md:px-6 bg-white border-b-2 relative">
+    <header 
+      className={`flex h-20 items-center justify-between px-4 md:px-6 border-b border-border transition-colors duration-300 ${
+        isDarkMode 
+          ? 'bg-[#151517] text-white' 
+          : 'bg-white text-gray-900'
+      }`}
+      style={{
+        backgroundColor: isDarkMode ? '#151517' : '#ffffff',
+        borderColor: isDarkMode ? '#2a2a2d' : '#e5e7eb'
+      }}
+    >
       <div className="flex items-center gap-4" ref={menuRef}>
         {/* MENU BUTTON */}
         <div className="relative">
           <Button 
-            variant="destructive"
-            className="bg-red-600 text-white hover:bg-red-700"
+            variant="default"
+            className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
             onClick={() => setOpen(!open)}
           >
             <Menu className="h-6 w-6 mr-2" />
@@ -101,15 +107,26 @@ const Header = () => {
           {/* DROPDOWN / SIDEBAR MENU */}
           {open && (
             <div
-              className="absolute left-[-25px] top-14 z-50 w-62 bg-white pl-[50px] border-gray-200 rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out"
+              className={`absolute left-[-25px] top-14 z-50 w-62 pl-[50px] rounded-lg shadow-lg p-4 transition-all duration-300 ease-in-out ${
+                isDarkMode 
+                  ? 'bg-[#1e1e20] border border-[#2a2a2d]' 
+                  : 'bg-white border border-gray-200'
+              }`}
+              style={{
+                backgroundColor: isDarkMode ? '#1e1e20' : '#ffffff',
+                borderColor: isDarkMode ? '#2a2a2d' : '#e5e7eb'
+              }}
               onMouseLeave={() => setOpen(false)}
             >
-              <nav className="flex flex-col space-y-2 text-base font-medium text-gray-700">
+              <nav className="flex flex-col space-y-2 text-base font-medium">
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -119,8 +136,11 @@ const Header = () => {
                 <NavLink
                   to="/business-lists"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -130,8 +150,11 @@ const Header = () => {
                 <NavLink
                   to="/business-form"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -141,8 +164,11 @@ const Header = () => {
                 <NavLink
                   to="/maps"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -152,8 +178,11 @@ const Header = () => {
                 <NavLink
                   to="/satelite-map"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -163,8 +192,11 @@ const Header = () => {
                 <NavLink
                   to="/media"
                   className={({ isActive }) =>
-                    `hover:text-red-600 transition ${
-                      isActive ? "text-red-600 font-bold bg-red-50 px-3 py-1 rounded-md" : ""
+                    `hover:text-blue-600 transition ${
+                      isActive 
+                        ? "text-blue-600 font-bold px-3 py-1 rounded-md" + 
+                          (isDarkMode ? " bg-blue-900/30" : " bg-blue-50") 
+                        : isDarkMode ? "text-gray-300 hover:text-blue-400" : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                 >
@@ -177,8 +209,16 @@ const Header = () => {
 
         {/* LOGO + TITLE */}
         <div className="hidden md:flex items-center gap-2">
-          <img src="/assets/logo.png" alt="Leganes Logo" className="h-12" />
-          <h1 className="text-2xl font-bold text-gray-700">LGU Leganes</h1>
+          <img 
+            src="/assets/logo.png" 
+            alt="Leganes Logo" 
+            className="h-12" 
+          />
+          <h1 className={`text-2xl font-bold ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
+            LGU Leganes
+          </h1>
         </div>
       </div>
 
@@ -187,29 +227,65 @@ const Header = () => {
         {/* WEATHER DISPLAY */}
         <Link to="/dashboard-summary">
           {/* Desktop Weather Display */}
-          <div className="hidden sm:flex items-center gap-3 bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-2 rounded-lg border border-blue-200">
+          <div 
+            className={`hidden sm:flex items-center gap-3 px-4 py-2 rounded-lg border transition-colors duration-300 ${
+              isDarkMode 
+                ? 'bg-[#1e1e20] border-[#2a2a2d]' 
+                : 'bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200'
+            }`}
+            style={{
+              backgroundColor: isDarkMode ? '#1e1e20' : '',
+              borderColor: isDarkMode ? '#2a2a2d' : ''
+            }}
+          >
             <div className="flex items-center gap-2">
               {getWeatherIcon()}
-              <span className="text-lg font-bold text-gray-800">
+              <span className={`text-lg font-bold ${
+                isDarkMode ? 'text-white' : 'text-gray-800'
+              }`}>
                 {weatherDisplay.temperature}
               </span>
             </div>
 
-            <div className="flex flex-col text-xs text-gray-600 border-l border-blue-200 pl-3">
+            <div 
+              className={`flex flex-col text-xs border-l pl-3 ${
+                isDarkMode 
+                  ? 'text-gray-400 border-[#2a2a2d]' 
+                  : 'text-gray-600 border-blue-200'
+              }`}
+            >
               <div className="flex items-center gap-1">
-                <Cloud className="h-3 w-3" />
+                <Cloud className={`h-3 w-3 ${
+                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`} />
                 <span className="capitalize">{weatherDisplay.condition}</span>
               </div>
               {weatherData?.city && (
-                <div className="text-xs text-gray-500">{weatherData.city}</div>
+                <div className={`text-xs ${
+                  isDarkMode ? 'text-gray-500' : 'text-gray-500'
+                }`}>
+                  {weatherData.city}
+                </div>
               )}
             </div>
           </div>
 
           {/* Mobile Weather Display */}
-          <div className="flex sm:hidden items-center gap-2 bg-blue-50 px-3 py-2 rounded-lg border border-blue-200">
+          <div 
+            className={`flex sm:hidden items-center gap-2 px-3 py-2 rounded-lg border transition-colors duration-300 ${
+              isDarkMode 
+                ? 'bg-[#1e1e20] border-[#2a2a2d]' 
+                : 'bg-blue-50 border-blue-200'
+            }`}
+            style={{
+              backgroundColor: isDarkMode ? '#1e1e20' : '',
+              borderColor: isDarkMode ? '#2a2a2d' : ''
+            }}
+          >
             {getWeatherIcon()}
-            <span className="text-sm font-semibold text-gray-800">
+            <span className={`text-sm font-semibold ${
+              isDarkMode ? 'text-white' : 'text-gray-800'
+            }`}>
               {weatherDisplay.temperature}
             </span>
           </div>
@@ -217,18 +293,23 @@ const Header = () => {
 
         {/* DARK/LIGHT TOGGLE */}
         <button
-          onClick={() => setDarkMode(!darkMode)}
-          className={`relative w-14 h-8 rounded-full transition-colors duration-300 flex items-center ${
-            darkMode ? "bg-gray-700" : "bg-gray-300"
+          onClick={toggleTheme}
+          className={`relative w-14 h-8 rounded-full transition-colors duration-300 flex items-center border-2 ${
+            isDarkMode 
+              ? 'bg-[#2a2a2d] border-[#3a3a3d]' 
+              : 'bg-gray-200 border-gray-300'
           }`}
+          aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
         >
           <span
-            className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-white flex items-center justify-center transition-all duration-300 ${
-              darkMode ? "translate-x-6" : "translate-x-0"
+            className={`absolute left-1 top-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
+              isDarkMode 
+                ? 'translate-x-6 bg-[#151517]' 
+                : 'translate-x-0 bg-white'
             }`}
           >
-            {darkMode ? (
-              <Moon className="h-4 w-4 text-gray-800" />
+            {isDarkMode ? (
+              <Moon className="h-4 w-4 text-gray-300" />
             ) : (
               <Sun className="h-4 w-4 text-yellow-500" />
             )}

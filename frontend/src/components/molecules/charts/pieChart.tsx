@@ -1,41 +1,96 @@
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+"use client"
 
-const data = [
-  { name: 'Active', value: 400 },
-  { name: 'Inactive', value: 300 },
-];
+import { LabelList, Pie, PieChart } from "recharts"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import type { BaseChartProps, ChartConfig } from "@/types/charts"
+import { ChartFooter } from '@/components/molecules/charts/ChartFooter'
 
-const COLORS = ['#0088FE', '#00C49F'];
+interface GenericPieChartProps extends BaseChartProps {
+  chartConfig: ChartConfig;
+  dataKey: string;
+  nameKey: string;
+  showLabels?: boolean;
+  showFooter?: boolean;
+  trend?: {
+    value: number;
+    isPositive?: boolean;
+    label?: string;
+  };
+  footerDescription?: string;
+}
 
-const TotalBusinessChart = () => {
+export default function GenericPieChart({
+  data,
+  height = 250,
+  title,
+  description,
+  chartConfig,
+  dataKey,
+  nameKey,
+  showLabels = true,
+  showFooter = false,
+  trend,
+  footerDescription,
+  className = ""
+}: GenericPieChartProps) {
   return (
-    <div style={{ width: '100%', height: 300 }}>
-      <ResponsiveContainer>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            label={(props) => {
-              const { name, percent } = props as unknown as { name: string; percent: number };
-              // const { name, percent } = props as { name: string; percent: number };
-              return `${name} ${(percent * 100).toFixed(0)}%`;
-            }}
-          >
-            {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
+    <Card className={`flex flex-col h-full ${className}`}>
+      <CardHeader className="items-center pb-0">
+        <CardTitle>{title}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
+      </CardHeader>
 
-export default TotalBusinessChart;
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="[&_.recharts-text]:fill-background mx-auto aspect-square"
+          style={{ maxHeight: `${height}px` }}
+        >
+          <PieChart>
+            <ChartTooltip
+              content={<ChartTooltipContent nameKey={dataKey} hideLabel />}
+            />
+            <Pie
+              data={data}
+              dataKey={dataKey}
+              nameKey={nameKey}
+              stroke="#fff"
+              strokeWidth={2}
+              labelLine={false}
+            >
+              {showLabels && (
+                <LabelList
+                  dataKey={nameKey}
+                  position="inside"
+                  className="fill-white font-medium"
+                  fontSize={12}
+                  stroke="none"
+                  formatter={(value: string) => chartConfig[value]?.label || value}
+                />
+              )}
+            </Pie>
+          </PieChart>
+        </ChartContainer>
+      </CardContent>
+
+      {showFooter && (
+        <ChartFooter
+          trend={trend}
+          description={footerDescription}
+        />
+      )}
+
+    </Card>
+  )
+}

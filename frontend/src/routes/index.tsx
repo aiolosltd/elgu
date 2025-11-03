@@ -11,7 +11,8 @@ import GISmain from "@/pages/Dashboard/Maps/GISMain";
 import Maps from "@/pages/Dashboard/Maps/Maps";
 import MainLayout from "@/layout/main";
 import { FormProvider } from "@/context/FormContext";
-
+import BusinessViewPage from '@/pages/Dashboard/Business/BusinessViewPage';
+import GISDetails from "@/pages/Dashboard/Maps/GISDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -76,6 +77,25 @@ export const router = createBrowserRouter([
   },
 
   {
+    path: "/business-form/:businessId",
+    element: (
+      <MainLayout>
+        <FormProvider>
+          <BusinessForm />
+        </FormProvider>
+      </MainLayout>
+    ),
+  },
+  {
+    path: "//business/:id/view",
+    element: (
+      <MainLayout>
+        <BusinessViewPage />
+      </MainLayout>
+    ),
+  },
+
+  {
     path: "/satelite-map",
     element: (
       <MainLayout>
@@ -83,6 +103,16 @@ export const router = createBrowserRouter([
       </MainLayout>
     ),
   },
+
+   {
+    path: "/satelite-map/summary",
+    element: (
+      <MainLayout>
+        <GISDetails />
+      </MainLayout>
+    ),
+  },
+
 
   {
     path: "/Maps",

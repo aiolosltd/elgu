@@ -1,3 +1,4 @@
+// components/GISDetails.tsx
 import React, { useEffect, useRef, useState } from "react";
 import {
   X,
@@ -9,11 +10,20 @@ import {
   Cloud,
   Type,
   Map,
+  BarChart3,
+  Home
 } from "lucide-react";
-import { useGoogleMapsLoader } from "@/services/useGoogleMapsLoader";
+import { useGoogleMapsLoader } from "@/services/api/useGoogleMapsLoader";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 interface GISDetailsProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 interface GalleryRef {
@@ -31,11 +41,10 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
   const [summaryType, setSummaryType] = useState("vegetation");
   const [galleryImages, setGalleryImages] = useState<GalleryRef[]>([]);
   const [summaryText, setSummaryText] = useState("");
-  const [, setMap] = useState<google.maps.Map | null>(null);
-  const [drawingManager, setDrawingManager] =
-    useState<google.maps.drawing.DrawingManager | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [drawingManager, setDrawingManager] = useState<google.maps.drawing.DrawingManager | null>(null);
 
-  //   const { isLoaded, loadError } = useGoogleMapsLoader();
   const { isLoaded, error } = useGoogleMapsLoader();
 
   useEffect(() => {
@@ -48,10 +57,13 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
     if (!mapRef.current || !window.google) return;
 
     const googleMap = new google.maps.Map(mapRef.current, {
-      zoom: 10,
-      center: { lat: 14.5995, lng: 120.9842 },
+      zoom: 12,
+      center: { lat: 10.7868, lng: 122.5894 }, // Leganes coordinates
       mapTypeId: "hybrid",
       mapTypeControl: true,
+      mapTypeControlOptions: {
+        position: google.maps.ControlPosition.TOP_RIGHT,
+      },
       streetViewControl: false,
       fullscreenControl: true,
     });
@@ -101,11 +113,7 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
           const rectangle = event.overlay as google.maps.Rectangle;
           const bounds = rectangle.getBounds();
           console.log("Rectangle bounds:", bounds?.toJSON());
-
-          localStorage.setItem(
-            "selectedBounds",
-            JSON.stringify(bounds?.toJSON())
-          );
+          localStorage.setItem("selectedBounds", JSON.stringify(bounds?.toJSON()));
         }
 
         if (event.type === google.maps.drawing.OverlayType.POLYGON) {
@@ -118,7 +126,6 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
               lng: latLng.lng(),
             }));
           console.log("Polygon coordinates:", coordinates);
-
           localStorage.setItem("selectedPolygon", JSON.stringify(coordinates));
         }
       }
@@ -131,17 +138,32 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
     }
   };
 
-  const handleSummary = () => {
+  const handleSummary = async () => {
+    setIsGenerating(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
     const dummySummary = `
-      Value Change: +15.2%
-      Summary: Vegetation index shows improvement compared to previous period.
-      Insight: The area shows significant regrowth, likely due to recent conservation efforts.
-      
-      Analysis Parameters:
-      - Date Range: ${dateFrom} to ${dateTo}
-      - Comparison Range: ${dateFromCompare} to ${dateToCompare}
-      - Cloud Coverage: ${cloudPct}%
-      - Analysis Type: ${summaryType}
+🌿 **Vegetation Analysis Report**
+📍 **Area of Interest**: Leganes, Iloilo
+📅 **Analysis Period**: ${dateFrom} to ${dateTo}
+📊 **Comparison Period**: ${dateFromCompare} to ${dateToCompare}
+
+**Key Findings:**
+✅ **Vegetation Health**: +15.2% improvement
+✅ **Green Coverage**: Increased by 8.7%
+⚠️ **Areas of Concern**: 2 locations showing decline
+
+**Detailed Analysis:**
+• NDVI Index: 0.65 (Healthy)
+• Change Detection: Positive trend in 85% of area
+• Cloud Coverage: ${cloudPct}% (Optimal)
+
+**Recommendations:**
+1. Continue current conservation efforts
+2. Monitor areas showing decline
+3. Consider reforestation in identified zones
     `;
 
     const dummyGallery: GalleryRef[] = [
@@ -161,6 +183,7 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
 
     setSummaryText(dummySummary);
     setGalleryImages(dummyGallery);
+    setIsGenerating(false);
   };
 
   const handleExportPDF = () => {
@@ -191,231 +214,276 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
     alert("Email functionality would be implemented here");
   };
 
-  const handleSummaryTypeChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setSummaryType(event.target.value);
+
+
+  const handleGoToMainMap = () => {
+    window.location.href = '/satelite-map';
   };
 
   if (error) {
     return (
-      <div className="p-4">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          Failed to load Google Maps: {error}
-        </div>
-      </div>
+      <Card>
+        <CardContent className="p-4">
+          <div className="bg-destructive/15 text-destructive px-4 py-3 rounded-lg">
+            Failed to load Google Maps: {error}
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="flex items-center justify-between px-6 py-4">
-          <h1 className="text-xl font-semibold text-gray-800">
-            GIS Analysis Details
-          </h1>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <X size={20} className="text-gray-600" />
-          </button>
-        </div>
-      </header>
-
-      <div className="flex-1 flex p-4 gap-4 overflow-hidden">
-        {/* Left Panel - Controls */}
-        <div className="w-80 bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex flex-col gap-4">
-          <h2 className="text-lg font-semibold text-gray-800">
-            Analysis Parameters
-          </h2>
-
-          <div className="space-y-4">
+    <div className="min-h-screen p-4">
+      <div className="mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <BarChart3 className="h-8 w-8 text-primary" />
             <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Calendar size={16} />
-                Date From
-              </label>
-              <input
-                type="date"
-                value={dateFrom}
-                onChange={(e) => setDateFrom(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Calendar size={16} />
-                Date To
-              </label>
-              <input
-                type="date"
-                value={dateTo}
-                onChange={(e) => setDateTo(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Calendar size={16} />
-                Compare Date From
-              </label>
-              <input
-                type="date"
-                value={dateFromCompare}
-                onChange={(e) => setDateFromCompare(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Calendar size={16} />
-                Compare Date To
-              </label>
-              <input
-                type="date"
-                value={dateToCompare}
-                onChange={(e) => setDateToCompare(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Cloud size={16} />
-                Cloud Percentage
-              </label>
-              <input
-                type="number"
-                value={cloudPct}
-                onChange={(e) => setCloudPct(Number(e.target.value))}
-                min="0"
-                max="100"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                <Type size={16} />
-                Summary Type
-              </label>
-              <select
-                value={summaryType}
-                onChange={handleSummaryTypeChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="vegetation">Vegetation</option>
-                <option value="water">Water</option>
-                <option value="urban">Urban</option>
-                <option value="agriculture">Agriculture</option>
-              </select>
+              <h1 className="text-2xl font-bold">GIS Analysis Dashboard</h1>
+              <p className="text-muted-foreground">Complete spatial analysis and reporting tools for Leganes Business Map</p>
             </div>
           </div>
-
-          <div className="flex gap-2 mt-4">
-            <button
-              onClick={handleDraw}
-              className="flex items-center justify-center gap-2 flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              <Square size={16} />
-              Draw AOI
-            </button>
-            <button
-              onClick={handleSummary}
-              className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              <Map size={16} />
-              Generate Summary
-            </button>
-          </div>
-
-          <div className="space-y-2 mt-4">
-            <button
-              onClick={handleExportPDF}
-              disabled={!summaryText}
-              className="flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <Download size={16} />
-              Export PDF
-            </button>
-            <button
-              onClick={handleExportWord}
-              disabled={!summaryText}
-              className="flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <Download size={16} />
-              Export Word
-            </button>
-            <button
-              onClick={handleEmail}
-              disabled={!summaryText}
-              className="flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <Mail size={16} />
-              Email Report
-            </button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={handleGoToMainMap}>
+              <Home className="h-4 w-4 mr-2" />
+              Main Map
+            </Button>
+           
           </div>
         </div>
 
-        {/* Right Panel - Map and Results */}
-        <div className="flex-1 flex flex-col gap-4 min-w-0">
-          {/* Map */}
-          <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            {isLoaded ? (
-              <div ref={mapRef} className="w-full h-full min-h-[400px]" />
-            ) : (
-              <div className="flex justify-center items-center h-full">
-                <p className="text-gray-500">Loading map...</p>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Panel - Controls */}
+          <div className="lg:col-span-1 space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Analysis Parameters</CardTitle>
+                <CardDescription>Configure your GIS analysis settings</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="dateFrom" className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Date From
+                  </Label>
+                  <Input
+                    id="dateFrom"
+                    type="date"
+                    value={dateFrom}
+                    onChange={(e) => setDateFrom(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="dateTo" className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Date To
+                  </Label>
+                  <Input
+                    id="dateTo"
+                    type="date"
+                    value={dateTo}
+                    onChange={(e) => setDateTo(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="dateFromCompare" className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Compare Date From
+                  </Label>
+                  <Input
+                    id="dateFromCompare"
+                    type="date"
+                    value={dateFromCompare}
+                    onChange={(e) => setDateFromCompare(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="dateToCompare" className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Compare Date To
+                  </Label>
+                  <Input
+                    id="dateToCompare"
+                    type="date"
+                    value={dateToCompare}
+                    onChange={(e) => setDateToCompare(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="cloudPct" className="flex items-center gap-2">
+                    <Cloud className="h-4 w-4" />
+                    Cloud Percentage
+                  </Label>
+                  <Input
+                    id="cloudPct"
+                    type="number"
+                    value={cloudPct}
+                    onChange={(e) => setCloudPct(Number(e.target.value))}
+                    min="0"
+                    max="100"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="summaryType" className="flex items-center gap-2">
+                    <Type className="h-4 w-4" />
+                    Analysis Type
+                  </Label>
+                  <Select value={summaryType} onValueChange={setSummaryType}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="vegetation">Vegetation Analysis</SelectItem>
+                      <SelectItem value="water">Water Bodies</SelectItem>
+                      <SelectItem value="urban">Urban Development</SelectItem>
+                      <SelectItem value="agriculture">Agriculture</SelectItem>
+                      <SelectItem value="business">Business Density</SelectItem>
+                      <SelectItem value="compliance">Compliance Analysis</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-4 space-y-3">
+                <div className="flex gap-2">
+                  <Button onClick={handleDraw} variant="outline" className="flex-1">
+                    <Square className="h-4 w-4 mr-2" />
+                    Draw AOI
+                  </Button>
+                  <Button 
+                    onClick={handleSummary} 
+                    disabled={isGenerating}
+                    className="flex-1"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <Map className="h-4 w-4 mr-2" />
+                        Generate Report
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {isGenerating && (
+                  <div className="space-y-2">
+                    <Progress value={65} className="h-2" />
+                    <p className="text-xs text-muted-foreground text-center">
+                      Processing satellite imagery and business data...
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {summaryText && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Export Options</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Button variant="outline" className="w-full justify-start" onClick={handleExportPDF}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Export PDF Report
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={handleExportWord}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Word Document
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={handleEmail}>
+                    <Mail className="h-4 w-4 mr-2" />
+                    Email Report
+                  </Button>
+                </CardContent>
+              </Card>
             )}
           </div>
 
-          {/* Summary and Gallery */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Summary */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 h-48 overflow-auto">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                Analysis Summary
-              </h3>
-              {summaryText ? (
-                <pre className="text-sm text-gray-700 whitespace-pre-line font-sans">
-                  {summaryText}
-                </pre>
-              ) : (
-                <p className="text-gray-500 text-sm">
-                  Click "Generate Summary" to see analysis results
-                </p>
-              )}
-            </div>
+          {/* Right Panel - Map and Results */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Map */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Map className="h-5 w-5" />
+                  Analysis Map - Leganes, Iloilo
+                </CardTitle>
+                <CardDescription>Draw areas of interest on the map for spatial analysis</CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div ref={mapRef} className="w-full h-96 rounded-b-lg" />
+              </CardContent>
+            </Card>
 
-            {/* Gallery */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 h-48 overflow-auto">
-              <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800 mb-3">
-                <ImageIcon size={18} />
-                Gallery
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {galleryImages.length > 0 ? (
-                  galleryImages.map((image, index) => (
-                    <button
-                      key={index}
-                      onClick={() => window.open(image.url, "_blank")}
-                      className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-sm transition-colors border border-gray-300"
-                    >
-                      {image.label}
-                    </button>
-                  ))
-                ) : (
-                  <p className="text-gray-500 text-sm">
-                    No gallery images available
-                  </p>
-                )}
-              </div>
+            {/* Results */}
+            <div className="grid grid-cols-1 gap-6">
+              {/* Summary */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    Analysis Summary
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {summaryText ? (
+                    <div className="space-y-3">
+                      <div className="flex gap-2">
+                        <Badge variant="default">Analysis Complete</Badge>
+                        <Badge variant="secondary">{summaryType}</Badge>
+                        <Badge variant="outline">Leganes Area</Badge>
+                      </div>
+                      <pre className="text-sm whitespace-pre-line font-sans bg-muted/50 p-4 rounded-lg">
+                        {summaryText}
+                      </pre>
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 text-muted-foreground">
+                      <BarChart3 className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                      <p className="text-lg font-medium mb-2">No Analysis Generated</p>
+                      <p className="text-sm">Configure parameters and click "Generate Report" to see analysis results</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Gallery */}
+              {galleryImages.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <ImageIcon className="h-5 w-5" />
+                      Analysis Gallery
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {galleryImages.map((image, index) => (
+                        <div key={index} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                          <div className="aspect-video bg-muted flex items-center justify-center">
+                            <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                          </div>
+                          <div className="p-3">
+                            <p className="text-sm font-medium text-center">{image.label}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </div>
