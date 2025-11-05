@@ -1,7 +1,6 @@
 // components/GISDetails.tsx
 import React, { useEffect, useRef, useState } from "react";
 import {
-  X,
   Download,
   Mail,
   Square,
@@ -31,7 +30,7 @@ interface GalleryRef {
   label: string;
 }
 
-const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
+const GISDetails: React.FC<GISDetailsProps> = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [dateFrom, setDateFrom] = useState("2024-01-01");
   const [dateTo, setDateTo] = useState("2024-12-31");
@@ -42,7 +41,7 @@ const GISDetails: React.FC<GISDetailsProps> = ({ onClose }) => {
   const [galleryImages, setGalleryImages] = useState<GalleryRef[]>([]);
   const [summaryText, setSummaryText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [, setMap] = useState<google.maps.Map | null>(null);
   const [drawingManager, setDrawingManager] = useState<google.maps.drawing.DrawingManager | null>(null);
 
   const { isLoaded, error } = useGoogleMapsLoader();

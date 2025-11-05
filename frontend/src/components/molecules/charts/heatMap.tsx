@@ -1,5 +1,5 @@
 // components/molecules/charts/heatMap.tsx
-import React, { useEffect, useRef, useState, useCallback } from 'react'; // ✅ Added useCallback import
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useGoogleMapsLoader } from '@/services/api/useGoogleMapsLoader';
 import { useBusinessHeatmap } from '@/hooks/useBusinessHeatmap';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -111,6 +111,9 @@ export const BusinessHeatmap: React.FC<BusinessHeatmapProps> = ({
                    point.weight >= 2 ? '#FFA500' : 
                    '#00AAFF';
       
+      // Create proper LatLng for circles
+      const center = new google.maps.LatLng(point.location.lat, point.location.lng);
+      
       const circle = new google.maps.Circle({
         strokeColor: color,
         strokeOpacity: 0.8,
@@ -118,7 +121,7 @@ export const BusinessHeatmap: React.FC<BusinessHeatmapProps> = ({
         fillColor: color,
         fillOpacity: 0.35,
         map: map,
-        center: point.location, // Use the simple {lat, lng} object
+        center: center,
         radius: point.weight * 100 // Larger radius for higher density
       });
       
@@ -156,11 +159,11 @@ export const BusinessHeatmap: React.FC<BusinessHeatmapProps> = ({
       if (hasVisualization) {
         console.log('✅ Using Google Maps Visualization Heatmap');
         
-        // ✅ FIX: Convert our simple objects to proper format for Google Maps
+        // ✅ FIXED: Convert our simple objects to proper Google Maps LatLng objects
         const heatmapDataPoints = heatmapData.points.map(point => {
-          // Google Maps HeatmapLayer accepts simple {lat, lng} objects
+          // Create proper google.maps.LatLng objects
           return {
-            location: point.location, // This is already {lat, lng}
+            location: new google.maps.LatLng(point.location.lat, point.location.lng),
             weight: point.weight
           };
         });
@@ -208,7 +211,9 @@ export const BusinessHeatmap: React.FC<BusinessHeatmapProps> = ({
       if (heatmapData.points.length > 0) {
         const bounds = new google.maps.LatLngBounds();
         heatmapData.points.forEach(point => {
-          bounds.extend(point.location);
+          // Create LatLng object for bounds
+          const latLng = new google.maps.LatLng(point.location.lat, point.location.lng);
+          bounds.extend(latLng);
         });
         googleMap.fitBounds(bounds);
         
@@ -224,7 +229,7 @@ export const BusinessHeatmap: React.FC<BusinessHeatmapProps> = ({
         setUsingFallback(true);
       }
     }
-  }, [googleMap, heatmapData, isMapReady, isGoogleMapsLoaded, createManualHeatmap]);
+  }, [googleMap, heatmapData, isMapReady, isGoogleMapsLoaded, heatmapLayer, createManualHeatmap]);
 
   const handleZoomIn = () => {
     if (googleMap) {

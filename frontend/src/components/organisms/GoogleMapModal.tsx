@@ -6,7 +6,7 @@ import { Input } from '@/components/atoms/input';
 export function GoogleMapModal({ 
   onClose, 
   onSelectLocation,
-  initialAddress = ""
+//   initialAddress = ""
 }: { 
   onClose: () => void; 
   onSelectLocation: (lat: number, lng: number, address: string) => void;
@@ -15,7 +15,7 @@ export function GoogleMapModal({
     const { isLoaded, error } = useGoogleMapsLoader();
     const mapRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
-    const [map, setMap] = useState<google.maps.Map | null>(null);
+    const [, setMap] = useState<google.maps.Map | null>(null);
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
     const [selectedAddress, setSelectedAddress] = useState<string>("");

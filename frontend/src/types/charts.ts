@@ -64,7 +64,7 @@ export interface DashboardChartData {
   stackedBarChart: {
     title: string;
     description: string;
-    data: Array<{ name: string; [key: string]: number }>;
+    data: Array<{ name: number; [key: string]: number }>;
   };
   lineChart: {
     title: string;

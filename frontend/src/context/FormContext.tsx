@@ -313,20 +313,20 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   // Helper to update document status
-  const updateDocumentStatus = (documentId: string, status: number) => {
-    setFormData(prev => ({
-      ...prev,
-      documents: prev.documents.map(doc =>
-        doc.id === documentId ? { ...doc, status_ } : doc
-      )
-    }));
-  };
+  // const updateDocumentStatus = (documentId: string, status: number) => {
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     documents: prev.documents.map(doc =>
+  //       doc.id === documentId ? { ...doc, status_ } : doc
+  //     )
+  //   }));
+  // };
 
   // Document Management Functions
   const uploadDocument = async (file: File, type: string, description: string): Promise<boolean> => {
     try {
       // Convert file to base64 for sending to backend
-      const base64File = await fileToBase64(file);
+      // const base64File = await fileToBase64(file);
 
       const newDocument: Document = {
         id: `doc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,

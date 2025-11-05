@@ -278,7 +278,7 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = "all" }) => {
       const details = await BusinessService.getBusinessDetails(businessId);
       console.log("✅ Business details loaded:", details);
       
-      setSelectedBusiness(details);
+      // setSelectedBusiness(details);
       setShowDetails(true);
       setDetailsLoading(false);
     } catch (err) {
@@ -488,28 +488,24 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = "all" }) => {
             value={stats.total.toString()}
             icon={Building}
             color="blue"
-            compact={true}
           />
           <StatCard 
             title="Pending" 
             value={stats.pending.toString()} 
             icon={Clock} 
             color="yellow" 
-            compact={true}
           />
           <StatCard
             title="Compliant"
             value={stats.compliant.toString()}
             icon={CheckCircle}
             color="green"
-            compact={true}
           />
           <StatCard 
             title="Non-Compliant" 
             value={stats.nonCompliant.toString()} 
             icon={XCircle} 
             color="red" 
-            compact={true}
           />
         </div>
 

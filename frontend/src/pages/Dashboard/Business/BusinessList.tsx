@@ -252,8 +252,9 @@ const BusinessManagementPage: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
               <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center flex-1">
                 {/* Search Input */}
-                <div className="w-full lg:w-[300px]">
+                <div className="w-full lg:w-[400px]">
                   <LabeledInput
+                   label=""
                     id="search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}

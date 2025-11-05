@@ -17,13 +17,13 @@ const NotFoundPage: React.FC = () => {
 
       {/* Text */}
       <Typography variant="h2" weight="bold" className="text-gray-800 mb-2" text='404 - Page Not Found' />
-      
+
       <Typography as="p" className="text-gray-600 mb-2" text="The page you are looking for doesn't exist or has been moved." />
 
       {/* Back to home button */}
-      <Button
-        onClick={() => navigate('/')}
-        variant="default" text="Go Back Home" />
+      <Button onClick={() => navigate('/')} variant="default">
+        Go Back Home
+      </Button>
 
     </div>
   );

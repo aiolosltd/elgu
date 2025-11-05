@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Building, User, Map, X, Mail, Phone, Calendar, FileText } from "lucide-react";
 import { Typography } from "@/components/atoms/typography";
-import type { BusinessDetails, BusinessNameInfo, BusinessRequirements } from "@/types";
+// import type { BusinessDetails, BusinessNameInfo, BusinessRequirements } from "@/types";
 
-interface BusinessDetailsPanelProps {
+interface BusinessDetailsPanelProps { 
   selectedBusiness: any; // Changed to any to handle different data structures
   onClose: () => void;
 }

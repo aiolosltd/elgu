@@ -1,6 +1,6 @@
 // hooks/useBusinessHeatmap.ts
 import { useState, useEffect, useCallback } from 'react';
-import { BusinessService } from '@/services/businessService';
+// import { BusinessService } from '@/services/businessService';
 import type { BusinessMapDto } from '@/types/business';
 
 // Leganes coordinates boundary
@@ -28,14 +28,14 @@ export const useBusinessHeatmap = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Function to check if point is within Leganes boundary
-  const isPointInLeganes = useCallback((lat: number, lng: number): boolean => {
-    const minLat = Math.min(...leganesCoords.map(coord => coord.lat));
-    const maxLat = Math.max(...leganesCoords.map(coord => coord.lat));
-    const minLng = Math.min(...leganesCoords.map(coord => coord.lng));
-    const maxLng = Math.max(...leganesCoords.map(coord => coord.lng));
+  // const isPointInLeganes = useCallback((lat: number, lng: number): boolean => {
+  //   const minLat = Math.min(...leganesCoords.map(coord => coord.lat));
+  //   const maxLat = Math.max(...leganesCoords.map(coord => coord.lat));
+  //   const minLng = Math.min(...leganesCoords.map(coord => coord.lng));
+  //   const maxLng = Math.max(...leganesCoords.map(coord => coord.lng));
     
-    return lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng;
-  }, []);
+  //   return lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng;
+  // }, []);
 
   // Function to generate heatmap points from business data
   const generateHeatmapPoints = useCallback((businesses: BusinessMapDto[]): HeatmapData => {

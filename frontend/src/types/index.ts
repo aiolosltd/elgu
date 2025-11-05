@@ -30,6 +30,7 @@ export interface DashboardStats {
 }
 
 // Business-Related Interfaces
+// Business-Related Interfaces
 export interface Business {
   businessid_: string;
   businessname_: string;
@@ -49,8 +50,36 @@ export interface Business {
   dtiexpiry_: string | null;
   secexpiry_: string | null;
   cdaexpiry_: string | null;
+  
+  // ADD THESE MISSING PROPERTIES:
+  dateestablished_: string;
+  ismain_: boolean;
+  isbranch_: boolean;
+  isfranchise_: boolean;
+  ismarketstall: boolean;
+  iscommercialbuilding: boolean;
+  landmark_: string;
+  subdivision_: string;
+  phaseblock_: string;
+  lot_: string;
+  telno_: string;
+  cellno_: string;
+  faxno_: string;
+  tin_: string;
+  dtino_: string;
+  dtiissued_: string;
+  secno_: string;
+  secissued_: string;
+  localclearanceno_: string;
+  localclearancedate_: string;
+  repposition_: string;
+  email_rep: string;
+  cellno_rep: string;
+  ownershiptype_rep: string;
+  buildingspace_: string;
+  marketstall_: string;
+  businessbuildingid_: string;
 }
-
 export interface BusinessResponse {
   data: Business[];
   total: number;
@@ -69,6 +98,32 @@ export interface TableColumn {
   sortable?: boolean;
   // ... other properties
 }
+
+
+export interface BusinessMapDto {
+  businessId: string;
+  businessName: string;
+  representativeName: string;
+  longLat: string;
+  complianceStatus: "compliant" | "pending" | "noncompliant";
+  address: string;
+  dtiExpiry?: string;
+  secExpiry?: string;
+  cdaExpiry?: string;
+}
+
+export interface BusinessMapStats {
+  total: number;
+  compliant: number;
+  pending: number;
+  nonCompliant: number;
+}
+
+export interface MapFilterRequest {
+  complianceFilter: string;
+  searchQuery?: string;
+}
+
 
 export interface MapMarker {
   position: { lat: number; lng: number };

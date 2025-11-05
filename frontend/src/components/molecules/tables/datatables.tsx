@@ -172,7 +172,7 @@ export const DownloadControls = <TData,>({
 
     try {
       const { jsPDF } = await import('jspdf');
-      const autoTable = await import('jspdf-autotable');
+      // const autoTable = await import('jspdf-autotable');
       
       const doc = new jsPDF();
       
@@ -388,7 +388,7 @@ export function DataTable<TData, TValue>({
 
   // Determine which values to use based on position
   const searchValue = searchPosition === 'external' ? externalSearchValue : internalSearch;
-  const statusValue = statusFilterPosition === 'external' ? externalStatusValue : internalStatus;
+  // const statusValue = statusFilterPosition === 'external' ? externalStatusValue : internalStatus;
 
   const table = useReactTable({
     data,
@@ -593,7 +593,7 @@ export function DataTable<TData, TValue>({
 
     try {
       const { jsPDF } = await import('jspdf');
-      const autoTable = await import('jspdf-autotable');
+      // const autoTable = await import('jspdf-autotable');
       
       const doc = new jsPDF();
       const exportColumns = columns.filter(col => col.id !== 'actions');
