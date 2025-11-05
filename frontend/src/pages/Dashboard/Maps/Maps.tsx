@@ -278,7 +278,7 @@ const Maps: React.FC<MapsProps> = ({ complianceFilter = "all" }) => {
       const details = await BusinessService.getBusinessDetails(businessId);
       console.log("✅ Business details loaded:", details);
       
-      // setSelectedBusiness(details);
+      setSelectedBusiness(details);
       setShowDetails(true);
       setDetailsLoading(false);
     } catch (err) {
