@@ -34,7 +34,7 @@ import {
 
 import type { 
   DashboardFilters,
-  TrendData,
+  // TrendData,
   ChartConfig
 } from '@/types/dashboard';
 
@@ -150,7 +150,7 @@ const DashboardHeader = ({
             </Typography>
           </CardTitle>
           <CardDescription className="text-xs sm:text-sm">
-            Get a comprehensive view of all registered businesses, compliance rates, and performance trends across municipalities.
+            Get a comprehensive view of all registered businesses, compliance rates, and performance trends across Leganes.
             {activeFiltersCount > 0 && (
               <Badge variant="secondary" className="ml-2">
                 {activeFiltersCount} filter{activeFiltersCount > 1 ? 's' : ''} active
@@ -303,7 +303,7 @@ const StatisticsGrid = ({
     />
 
     <StatCard
-      title="Municipalities"
+      title="Barangays Covered"
       value={stats.municipalities}
       icon={MapPin}
       color="purple"
@@ -417,7 +417,7 @@ const DashboardCharts = ({ chartData, businessBarData, dynamicBarChartConfig }: 
           height={300}
           showFooter={true}
           trend={chartTrends.horizontalBarChart}
-          footerDescription="Data collected from all registered municipalities"
+          footerDescription="Data collected from all registered Leganes "
         />
       ) : (
         <EmptyChartState 

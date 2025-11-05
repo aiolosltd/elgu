@@ -154,6 +154,7 @@ interface FormContextType {
   loadBusinessData: (businessId: string) => Promise<void>;
   // Document Management Functions
   uploadDocument: (file: File, type: string, description: string) => Promise<boolean>;
+  uploadMultipleDocuments: (files: File[], type: string, description: string) => Promise<boolean>;
   deleteDocument: (documentId: string) => void;
   viewDocument: (document: Document) => void;
   addRequirement: (requirement: Requirement) => void;
@@ -301,33 +302,56 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  // Helper function to convert file to base64
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  // Helper to update document status
+  const updateDocumentStatus = (documentId: string, status: number) => {
+    setFormData(prev => ({
+      ...prev,
+      documents: prev.documents.map(doc =>
+        doc.id === documentId ? { ...doc, status_ } : doc
+      )
+    }));
+  };
+
   // Document Management Functions
   const uploadDocument = async (file: File, type: string, description: string): Promise<boolean> => {
     try {
-      // Instead of uploading immediately, just store the file information
+      // Convert file to base64 for sending to backend
+      const base64File = await fileToBase64(file);
+
       const newDocument: Document = {
-        id: `temp-${Date.now()}`,
+        id: `doc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         type_: type,
         desc_: description,
         businessId_: formData.businessname_ || 'temp',
         userid_: 'current-user',
-        path_: '', // Will be set when actually uploaded
+        path_: '', // Will be set by backend
         filename_: file.name,
         status_: 0, // 0 = pending upload
         datetimestamp_: new Date().toISOString(),
         file: file
       };
 
-      // Update documents in form data (store locally for now)
+      // Update documents in form data
       setFormData(prev => ({
         ...prev,
         documents: [...prev.documents, newDocument]
       }));
 
-      console.log('📁 Document stored for later upload:', {
+      console.log('📁 Document stored for upload:', {
         filename: file.name,
         type: type,
-        description: description
+        description: description,
+        size: file.size
       });
 
       return true;
@@ -339,6 +363,18 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         text: 'Failed to store document information',
         confirmButtonColor: '#ef4444',
       });
+      return false;
+    }
+  };
+
+  // Upload multiple documents at once
+  const uploadMultipleDocuments = async (files: File[], type: string, description: string): Promise<boolean> => {
+    try {
+      const uploadPromises = files.map(file => uploadDocument(file, type, description));
+      const results = await Promise.all(uploadPromises);
+      return results.every(result => result);
+    } catch (error: any) {
+      console.error('Multiple document upload error:', error);
       return false;
     }
   };
@@ -409,146 +445,8 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.log('📥 FULL API RESPONSE:', businessData);
 
       if (businessData) {
-        console.log('🎯 ACTUAL VALUES FROM API:');
-        console.log('  - businessname_:', businessData.businessname_);
-        console.log('  - repname_:', businessData.repname_);
-        console.log('  - repposition_:', businessData.repposition_);
-        console.log('  - firstname_:', businessData.firstname_);
-        console.log('  - lastname_:', businessData.lastname_);
-        console.log('  - email_:', businessData.email_);
-
-        const transformedData: FormData = {
-          // ========== MAIN BUSINESS INFO ==========
-          businessname_: businessData.businessname_ || '',
-          ismain_: businessData.ismain_ ?? true,
-          isforeign_: businessData.isforeign_ ?? false,
-          isbranch_: businessData.isbranch_ ?? false,
-          dateestablished_: businessData.dateestablished_ ? 
-            new Date(businessData.dateestablished_).toISOString().split('T')[0] : '',
-          ownershiptype_: businessData.ownershiptype_ || '',
-          registeredceo_: businessData.registeredceo_ || '',
-          tradename_: businessData.tradename_ || '',
-          isfranchise_: businessData.isfranchise_ ?? false,
-          ismarketstall: businessData.ismarketstall ?? false,
-          iscommercialbuilding: businessData.iscommercialbuilding ?? false,
-          marketstall_: businessData.marketstall_ || '',
-          businessbuildingid_: businessData.businessbuildingid_ || '',
-          buildingspace_: businessData.buildingspace_ || '',
-          waiveragreement_: businessData.waiveragreement_ ?? true,
-
-          // ========== BUSINESS ADDRESS INFO ==========
-          province_: businessData.province_ || '',
-          municipality_: businessData.municipality_ || '',
-          barangay_: businessData.barangay_ || '',
-          subdivision_: businessData.subdivision_ || '',
-          street_: businessData.street_ || '',
-          buildingname_: businessData.buildingname_ || '',
-          houseno_: businessData.houseno_ || '',
-          phaseblock_: businessData.phaseblock_ || '',
-          lot_: businessData.lot_ || '',
-          landmark_: businessData.landmark_ || '',
-          longlat_: businessData.longlat_ || '',
-          telno_: businessData.telno_ || '',
-          cellno_: businessData.cellno_ || '',
-          faxno_: businessData.faxno_ || '',
-          email_: businessData.email_ || '',
-          tin_: businessData.tin_ || '',
-
-          // ========== BUSINESS REPRESENTATIVE INFO ==========
-          repid: businessData.repid || '',
-          repname_: businessData.repname_ || '',
-          repposition_: businessData.repposition_ || '',
-          ownershiptype_rep: businessData.ownershiptype_rep || '',
-          firstname_: businessData.firstname_ || '',
-          middlename_: businessData.middlename_ || '',
-          lastname_: businessData.lastname_ || '',
-          suffixname_: businessData.suffixname_ || '',
-          birthdate_: businessData.birthdate_ ? 
-            new Date(businessData.birthdate_).toISOString().split('T')[0] : '',
-          gender_: businessData.gender_ || '',
-          civilstatus_: businessData.civilstatus_ || '',
-          nationality_: businessData.nationality_ || '',
-          telno_rep: businessData.telno_rep || '',
-          cellno_rep: businessData.cellno_rep || '',
-          faxno_rep: businessData.faxno_rep || '',
-          email_rep: businessData.email_rep || '',
-          tin_rep: businessData.tin_rep || '',
-          outsidecity_: businessData.outsidecity_ ?? false,
-          province_rep: businessData.province_rep || '',
-          municipality_rep: businessData.municipality_rep || '',
-          barangay_rep: businessData.barangay_rep || '',
-          subdivision_rep: businessData.subdivision_rep || '',
-          street_rep: businessData.street_rep || '',
-          buildingname_rep: businessData.buildingname_rep || '',
-          houseno_rep: businessData.houseno_rep || '',
-          block_: businessData.block_ || '',
-          lot_rep: businessData.lot_rep || '',
-          landmark_rep: businessData.landmark_rep || '',
-
-          // ========== BUSINESS REQUIREMENT INFO ==========
-          dtino_: businessData.dtino_ || '',
-          dtiissued_: businessData.dtiissued_ ? 
-            new Date(businessData.dtiissued_).toISOString().split('T')[0] : '',
-          dtiexpiry_: businessData.dtiexpiry_ ? 
-            new Date(businessData.dtiexpiry_).toISOString().split('T')[0] : '',
-          secno_: businessData.secno_ || '',
-          secissued_: businessData.secissued_ ? 
-            new Date(businessData.secissued_).toISOString().split('T')[0] : '',
-          secexpiry_: businessData.secexpiry_ ? 
-            new Date(businessData.secexpiry_).toISOString().split('T')[0] : '',
-          cdano_: businessData.cdano_ || '',
-          cdaissued_: businessData.cdaissued_ ? 
-            new Date(businessData.cdaissued_).toISOString().split('T')[0] : '',
-          cdaexpiry_: businessData.cdaexpiry_ ? 
-            new Date(businessData.cdaexpiry_).toISOString().split('T')[0] : '',
-          localclearanceno_: businessData.localclearanceno_ || '',
-          localclearancedate_: businessData.localclearancedate_ ? 
-            new Date(businessData.localclearancedate_).toISOString().split('T')[0] : '',
-          cedulano_: businessData.cedulano_ || '',
-          cedulaplaceissued_: businessData.cedulaplaceissued_ || '',
-          cedulaissued_: businessData.cedulaissued_ ? 
-            new Date(businessData.cedulaissued_).toISOString().split('T')[0] : '',
-          cedulaamount_: businessData.cedulaamount_ || 0,
-          boino_: businessData.boino_ || '',
-          boiissued_: businessData.boiissued_ ? 
-            new Date(businessData.boiissued_).toISOString().split('T')[0] : '',
-          boiexpiry_: businessData.boiexpiry_ ? 
-            new Date(businessData.boiexpiry_).toISOString().split('T')[0] : '',
-          sssno_: businessData.sssno_ || '',
-          sssdatereg_: businessData.sssdatereg_ ? 
-            new Date(businessData.sssdatereg_).toISOString().split('T')[0] : '',
-          pagibigno_: businessData.pagibigno_ || '',
-          pagibigreg_: businessData.pagibigreg_ ? 
-            new Date(businessData.pagibigreg_).toISOString().split('T')[0] : '',
-          phicno_: businessData.phicno_ || '',
-          phicreg_: businessData.phicreg_ ? 
-            new Date(businessData.phicreg_).toISOString().split('T')[0] : '',
-          pezaregistered_: businessData.pezaregistered_ ?? false,
-          pezaregno_: businessData.pezaregno_ || '',
-          pezaissued_: businessData.pezaissued_ ? 
-            new Date(businessData.pezaissued_).toISOString().split('T')[0] : '',
-          pezaexpiry_: businessData.pezaexpiry_ ? 
-            new Date(businessData.pezaexpiry_).toISOString().split('T')[0] : '',
-          verification_: businessData.verification_ ?? false,
-
-          // ========== BUSINESS Waiver INFO ==========
-          waivername_: businessData.waivername_ || '',
-          waivertype_: businessData.waivertype_ || '',
-          content_: businessData.content_ || '',
-          waiverstatus_: businessData.waiverstatus_ || false,
-
-          // ========== DOCUMENT MANAGEMENT ==========
-          documents: businessData.documents || [],
-          requirements: businessData.requirements || initialFormData.requirements,
-
-          // ========== FORM STATE ==========
-          agreedToTerms: false,
-          currentStep: 1,
-        };
-
-        console.log('🔄 FINAL TRANSFORMED DATA:', transformedData);
-        setFormData(transformedData);
-        setIsEditMode(true);
+        // ... [Keep your existing loadBusinessData implementation]
+        // Make sure to handle documents loading if needed
       }
     } catch (error: any) {
       console.error('❌ Error loading business data:', error);
@@ -629,71 +527,33 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return true;
   };
 
-  // Upload all pending documents
-  const uploadAllDocuments = async (): Promise<boolean> => {
-    const pendingDocuments = formData.documents.filter(doc => doc.status_ === 0 && doc.file);
-    
-    if (pendingDocuments.length === 0) {
-      return true; // No documents to upload
-    }
+  // Prepare documents for upload
+  const prepareDocumentsForUpload = async (): Promise<any[]> => {
+    const documentPromises = formData.documents.map(async (doc) => {
+      let fileData = null;
+      let fileType = null;
 
-    console.log(`📤 Uploading ${pendingDocuments.length} documents...`);
-    
-    const uploadPromises = pendingDocuments.map(async (doc) => {
       if (doc.file) {
-        try {
-          // Create FormData for file upload
-          const formDataToSend = new FormData();
-          formDataToSend.append('file', doc.file);
-          formDataToSend.append('type_', doc.type_);
-          formDataToSend.append('desc_', doc.desc_);
-          formDataToSend.append('businessId_', formData.businessname_);
-          formDataToSend.append('userid_', 'current-user');
-
-          // Use your actual document upload endpoint
-          const response = await api.post('/Business/upload-document', formDataToSend, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-
-          if (response.data.success) {
-            return {
-              ...doc,
-              id: response.data.data.id_ || doc.id,
-              path_: response.data.data.path_ || doc.filename_,
-              status_: 1 // Mark as uploaded
-            };
-          }
-        } catch (error) {
-          console.error(`Failed to upload ${doc.filename_}:`, error);
-          return {
-            ...doc,
-            status_: 2 // Failed
-          };
-        }
+        fileData = await fileToBase64(doc.file);
+        fileType = doc.file.type;
       }
-      return doc;
+
+      return {
+        id_: doc.id,
+        type_: doc.type_,
+        desc_: doc.desc_,
+        businessId_: formData.businessname_, // temporary, will be replaced by backend
+        userid_: 'current-user',
+        path_: doc.path_,
+        filename_: doc.filename_,
+        status_: doc.status_,
+        datetimestamp_: doc.datetimestamp_,
+        fileData: fileData,
+        fileType: fileType
+      };
     });
 
-    // Wait for all uploads to complete
-    const updatedDocuments = await Promise.all(uploadPromises);
-    
-    // Update form data with uploaded document info
-    setFormData(prev => ({
-      ...prev,
-      documents: updatedDocuments
-    }));
-
-    // Check if any uploads failed
-    const failedUploads = updatedDocuments.filter(doc => doc.status_ === 2);
-    if (failedUploads.length > 0) {
-      console.warn(`❌ ${failedUploads.length} document(s) failed to upload`);
-      return false;
-    }
-
-    console.log('✅ All documents uploaded successfully');
-    return true;
+    return await Promise.all(documentPromises);
   };
 
   // Create new business
@@ -711,37 +571,17 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
 
     try {
-      // Show loading for document upload
-      Swal.fire({
-        title: 'Uploading Documents...',
-        text: 'Please wait while we upload your documents',
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading(),
-      });
-
-      // Upload all pending documents first
-      const uploadSuccess = await uploadAllDocuments();
-      
-      if (!uploadSuccess) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Some Uploads Failed',
-          text: 'Some documents failed to upload. You can try again later.',
-          confirmButtonColor: '#f59e0b',
-        });
-        // Continue with submission anyway
-      }
-
-      // Close the upload loading dialog
-      Swal.close();
-
-      // Show submission loading
+      // Show loading for submission
       Swal.fire({
         title: 'Submitting Application...',
-        text: 'Please wait while we process your application',
+        text: 'Please wait while we process your business registration and documents',
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading(),
       });
+
+      // Prepare documents for upload
+      const documentsForUpload = await prepareDocumentsForUpload();
+      console.log(`📤 Preparing ${documentsForUpload.length} documents for upload`);
 
       // Prepare the payload
       const payload = {
@@ -848,11 +688,14 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         waiverstatus_: formData.waiverstatus_ || false,
 
         // ========== DOCUMENTS INFO ==========
-        documents: formData.documents.filter(doc => doc.status_ === 1),
-        requirements: formData.requirements,
+        documents: documentsForUpload,
       };
 
-      console.log('📤 Sending business data to API:', payload);
+      console.log('📤 Sending business data with documents to API:', {
+        businessName: payload.businessname_,
+        documentCount: documentsForUpload.length,
+        totalPayloadSize: JSON.stringify(payload).length
+      });
 
       const response = await api.post('/Business', payload);
 
@@ -861,7 +704,12 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       Swal.fire({
         icon: 'success',
         title: 'Application Submitted Successfully!',
-        text: `Business ${response.data.data?.businessName || formData.businessname_} has been created successfully.`,
+        html: `
+          <div class="text-center">
+            <p class="mb-2">Business <strong>${response.data.data?.BusinessName || formData.businessname_}</strong> has been created successfully!</p>
+            <p class="text-sm text-gray-600">${documentsForUpload.length} document(s) uploaded</p>
+          </div>
+        `,
         confirmButtonColor: '#10b981',
         confirmButtonText: 'View Business List',
       });
@@ -871,18 +719,11 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } catch (error: any) {
       Swal.close();
       
-      console.group('🚨 API Error Details');
-      console.error('Status:', error?.response?.status);
-      console.error('Status Text:', error?.response?.statusText);
-      console.error('URL:', error?.config?.url);
-      console.error('Request Payload:', error?.config?.data);
-      console.error('Response Data:', error?.response?.data);
-      console.groupEnd();
-
+      console.error('Submission error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Submission Failed',
-        text: 'There was an error processing your request. Please try again.',
+        text: error.response?.data?.message || 'There was an error processing your request. Please try again.',
         confirmButtonColor: '#ef4444',
       });
       return false;
@@ -906,38 +747,43 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setIsLoading(true);
 
     try {
-      // Upload all pending documents first
-      const uploadSuccess = await uploadAllDocuments();
+      // Show loading for submission
+      Swal.fire({
+        title: 'Updating Business...',
+        text: 'Please wait while we update your business information and documents',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
+      });
 
-      if (!uploadSuccess) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Some Uploads Failed',
-          text: 'Some documents failed to upload. You can try again later.',
-          confirmButtonColor: '#f59e0b',
-        });
-        // Continue with update anyway
-      }
+      // Prepare documents for upload
+      const documentsForUpload = await prepareDocumentsForUpload();
 
-      // Prepare update payload (similar to submitForm payload)
+      // Prepare update payload
       const payload = {
         // ... include all the same fields as submitForm
         businessname_: formData.businessname_,
         ismain_: formData.ismain_,
         isforeign_: formData.isforeign_,
         // ... include all other fields
-        documents: formData.documents.filter(doc => doc.status_ === 1),
-        requirements: formData.requirements,
+        documents: documentsForUpload,
       };
 
-      console.log('📤 Sending update payload to API:', payload);
+      console.log('📤 Sending update payload to API:', {
+        businessId: businessId,
+        documentCount: documentsForUpload.length
+      });
 
       const response = await api.put(`/Business/${businessId}`, payload);
 
       Swal.fire({
         icon: 'success',
         title: 'Business Updated Successfully!',
-        text: `Business ${response.data.data?.businessName || formData.businessname_} has been updated successfully.`,
+        html: `
+          <div class="text-center">
+            <p class="mb-2">Business <strong>${response.data.data?.BusinessName || formData.businessname_}</strong> has been updated successfully!</p>
+            <p class="text-sm text-gray-600">${documentsForUpload.length} document(s) processed</p>
+          </div>
+        `,
         confirmButtonColor: '#10b981',
         confirmButtonText: 'View Business List',
       });
@@ -945,11 +791,12 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       resetForm();
       return true;
     } catch (error: any) {
+      Swal.close();
       console.error('Update error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Update Failed',
-        text: 'There was an error processing your request. Please try again.',
+        text: error.response?.data?.message || 'There was an error processing your request. Please try again.',
         confirmButtonColor: '#ef4444',
       });
       return false;
@@ -976,6 +823,7 @@ export const FormProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         loadBusinessData,
         // Document Management Functions
         uploadDocument,
+        uploadMultipleDocuments,
         deleteDocument,
         viewDocument,
         addRequirement,

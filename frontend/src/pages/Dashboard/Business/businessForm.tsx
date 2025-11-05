@@ -130,7 +130,7 @@ const BusinessForm: React.FC = () => {
           </CardTitle>
           <CardDescription className='ml-0 sm:ml-5 text-xs sm:text-sm'>
             {isEditMode 
-              ? `Editing business: ${formData.businessname_ || 'Loading...'}`
+              ? `Editing business: ${formData.businessname_ || ''}`
               : 'Complete the business registration form to register your business with the local government.'
             }
             {isEditMode && businessId && ` (ID: ${businessId})`}and performance trends across municipalities.

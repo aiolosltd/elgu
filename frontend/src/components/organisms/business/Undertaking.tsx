@@ -59,12 +59,18 @@ const Summary: React.FC<SummaryProps> = ({ prevStep, currentStep, totalSteps }) 
   const params = useParams();
   const businessId = params.businessId || params.id;
 
+  React.useEffect(() => {
+    if (formData.waiverstatus_) {
+      setAgreed(true);
+    }
+  }, [formData.waiverstatus_]);
+
   // Function to format date in "2nd day of November, 2025" format
   const formatDateForWaiver = (date: Date): string => {
     const day = date.getDate();
     const month = date.toLocaleString('en', { month: 'long' });
     const year = date.getFullYear();
-    
+
     // Add ordinal suffix
     const getOrdinalSuffix = (n: number): string => {
       if (n > 3 && n < 21) return 'th';
@@ -75,7 +81,7 @@ const Summary: React.FC<SummaryProps> = ({ prevStep, currentStep, totalSteps }) 
         default: return 'th';
       }
     };
-    
+
     return `${day}${getOrdinalSuffix(day)} day of ${month}, ${year}`;
   };
 
@@ -83,11 +89,11 @@ const Summary: React.FC<SummaryProps> = ({ prevStep, currentStep, totalSteps }) 
   const getRepresentativeFullName = (): string => {
     const { firstname_, middlename_, lastname_, suffixname_ } = formData;
     let fullName = firstname_ || '';
-    
+
     if (middlename_) fullName += ` ${middlename_}`;
     if (lastname_) fullName += ` ${lastname_}`;
     if (suffixname_) fullName += ` ${suffixname_}`;
-    
+
     return fullName.trim();
   };
 
@@ -95,7 +101,7 @@ const Summary: React.FC<SummaryProps> = ({ prevStep, currentStep, totalSteps }) 
   const generateWaiverContent = (): string => {
     const representativeName = getRepresentativeFullName();
     const currentDate = formatDateForWaiver(new Date());
-    
+
     return `I, ${representativeName}, of legal age, and business registrant of City, undertake to comply with all statutory and regulatory requirements necessary to my license/permit application both on prerequisite and post inspection bases. I hereby authorize access to the premises of my establishment for city inspector/s to conduct the incidental/mandatory ocular inspection pursuant to law/ordinance.
 
 Likewise, I declare under penalty of perjury, that all information declared in this application are true and correct to the best of my personal knowledge and hereby attest to the authenticity of all the attached documents. I also acknowledge that all personal data and account transaction information records with the City of may be processed, profiled or shared to requesting parties or for the purpose of any court, legal process examination/inquiry/investigation of any legal authority consistent and within the limits of the provisions of Data Privacy Act of 2012 and its Implementing Rules and Regulations.
@@ -108,19 +114,19 @@ IN WITNESS WHEREOF, I have hereunto set my hand this ${currentDate} at City of, 
   const handleAgreementChange = (checked: boolean) => {
     setAgreed(checked);
     updateField("agreedToTerms", checked);
-    
+
     if (checked) {
       // When user agrees, automatically generate and update waiver data
       const representativeName = getRepresentativeFullName();
       const waiverContent = generateWaiverContent();
-      
+
       // ✅ UPDATE WAIVER FIELDS IN DATABASE
       updateField("waiverstatus_", true);
       updateField("waivername_", representativeName);
       updateField("waivertype_", "Business Permit"); // Set to "Business Permit"
       updateField("content_", waiverContent);
       updateField("waiveragreement_", true);
-      
+
       console.log('✅ Waiver data generated and saved to database:', {
         waivername_: representativeName,
         waivertype_: "Business Permit",

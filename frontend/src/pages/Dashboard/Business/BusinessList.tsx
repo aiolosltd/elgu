@@ -3,15 +3,8 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/atoms/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-// import { Input } from '@/components/ui/input';
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { DataTable } from '@/components/molecules/tables/datatables';
+import { DataTable, DownloadControls } from '@/components/molecules/tables/datatables';
 import { StatCard } from '@/components/molecules/card/statCard';
 import { SearchSelect } from '@/components/atoms/input/search-select';
 import { LabeledInput } from '@/components/molecules/labeledInput';
@@ -24,12 +17,8 @@ import {
   Eye, 
   Edit,
 } from 'lucide-react';
-// import ExcelJS from 'exceljs';
-// import { saveAs } from 'file-saver';
 import { useBusiness } from '@/hooks/useBusiness';
 import type { Business } from '@/types';
-
-// Import ColumnDef individually
 import type { ColumnDef } from "@tanstack/react-table";
 
 // Define the business type for the table
@@ -88,11 +77,29 @@ const BusinessManagementPage: React.FC = () => {
     }));
   }, [businesses]);
 
-  // Filter data based on status
+  // Filter data based on search and status
   const filteredData = useMemo(() => {
-    if (selectedStatus === 'all') return transformedBusinesses;
-    return transformedBusinesses.filter(business => business.status === selectedStatus);
-  }, [transformedBusinesses, selectedStatus]);
+    let filtered = transformedBusinesses;
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(business =>
+        business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        business.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        business.tradeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        business.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        business.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        business.location.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply status filter
+    if (selectedStatus !== 'all') {
+      filtered = filtered.filter(business => business.status === selectedStatus);
+    }
+
+    return filtered;
+  }, [transformedBusinesses, searchTerm, selectedStatus]);
 
   // Stats calculation
   const stats = useMemo(() => ({
@@ -179,10 +186,14 @@ const BusinessManagementPage: React.FC = () => {
     },
   ];
 
-  // ... rest of your component (export functions, etc.)
+  // Handle download
+  const handleDownload = (format: 'csv' | 'excel' | 'pdf', data: BusinessTable[]) => {
+    // You can customize the download logic here if needed
+    console.log(`Downloading ${format} with ${data.length} records`);
+  };
 
   return (
-    <div className="min-h-screen  p-6">
+    <div className="min-h-screen p-6">
       <div className="mx-auto space-y-6">
         {/* Header Card */}
         <Card>
@@ -201,7 +212,7 @@ const BusinessManagementPage: React.FC = () => {
                   Refresh
                 </Button>
 
-                <Button  variant="primary" onClick={handleAddBusiness}>
+                <Button variant="primary" onClick={handleAddBusiness}>
                   <Plus className="mr-2 h-4 w-4" />
                   Add Business
                 </Button>
@@ -235,50 +246,74 @@ const BusinessManagementPage: React.FC = () => {
           />
         </div>
 
-        {/* Filters Card */}
+        {/* Filters Card - WITH SEARCH, STATUS, AND DOWNLOAD BUTTON */}
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
-              <div className="w-full lg:w-[300px]">
-                <LabeledInput
-                  id="search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search businesses..."
-                  variant="rounded"
-                />
+            <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+              <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center flex-1">
+                {/* Search Input */}
+                <div className="w-full lg:w-[300px]">
+                  <LabeledInput
+                    id="search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search businesses..."
+                  />
+                </div>
+
+                {/* Status Filter */}
+                <div className="w-full lg:w-[200px]">
+                  <SearchSelect
+                    label=""
+                    id="status-filter"
+                    value={selectedStatus}
+                    onChange={handleStatusChange}
+                    options={statusOptions}
+                    placeholder="Filter by status"
+                  />
+                </div>
+
+                <div className="text-sm text-gray-600">
+                  Showing {filteredData.length} of {transformedBusinesses.length} businesses
+                  {selectedStatus !== 'all' && ` (Filtered by: ${statusOptions.find(opt => opt.value === selectedStatus)?.label})`}
+                </div>
               </div>
 
-              <div className="w-full lg:w-[200px]">
-                <SearchSelect
-                  label=""
-                  id="status-filter"
-                  value={selectedStatus}
-                  onChange={handleStatusChange}
-                  options={statusOptions}
-                  placeholder="Filter by status"
-                />
-              </div>
-
-              <div className="text-sm text-gray-600">
-                Showing {filteredData.length} of {transformedBusinesses.length} businesses
-                {selectedStatus !== 'all' && ` (Filtered by: ${statusOptions.find(opt => opt.value === selectedStatus)?.label})`}
+              {/* Download Button - Now properly working */}
+              <div className="w-full lg:w-auto">
+               <DownloadControls 
+                data={filteredData}
+                columns={columns}
+                downloadFileName="businesses"
+                downloadFormats={['csv', 'excel', 'pdf']}
+                onDownload={handleDownload}
+              />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Data Table */}
+        {/* Data Table - WITH ENABLED DOWNLOAD */}
         <Card>
           <CardContent className="pt-6">
-            <DataTable 
-              columns={columns} 
-              data={filteredData}
-              searchKey="name"
-              searchPlaceholder="Search businesses..."
-              showPagination={true}
-              pageSize={10}
-            />
+             <DataTable 
+            columns={columns} 
+            data={filteredData}
+            searchKey="name"
+            searchPosition="external"
+            externalSearchValue={searchTerm}
+            onExternalSearchChange={setSearchTerm}
+            enableStatusFilter={true}
+            statusFilterPosition="external"
+            externalStatusValue={selectedStatus}
+            onExternalStatusChange={setSelectedStatus}
+            // enableDownload={true} // ENABLED DOWNLOAD HERE
+            downloadFileName="businesses"
+            downloadFormats={['csv', 'excel', 'pdf']}
+            onDownload={handleDownload}
+            showPagination={true}
+            pageSize={10}
+          />
           </CardContent>
         </Card>
       </div>
