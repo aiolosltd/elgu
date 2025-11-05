@@ -1,4 +1,4 @@
-import type { WeatherData } from '@/types/index';
+import type { WeatherData } from '@/types';
 export async function fetchWeather(location: string): Promise<WeatherData> {
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 

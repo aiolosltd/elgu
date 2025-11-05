@@ -7,7 +7,7 @@ import type {
   BusinessMapStats, 
   MapFilterRequest,
   ApiResponse 
-} from '@/types/business';
+} from '@/types';
 
 // No need for separate interface definitions here
 // since we're importing from types

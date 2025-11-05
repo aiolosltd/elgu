@@ -1,14 +1,21 @@
 // hooks/useBusinessData.ts
 import { useState, useEffect, useCallback } from 'react';
 import { BusinessService } from '@/services/businessService';
+// import type { 
+//   Business, 
+//   BusinessDetails, 
+//   BusinessMapDto, 
+//   BusinessMapStats,
+//   MapFilterRequest 
+// } from '@/types/business';
+
 import type { 
   Business, 
   BusinessDetails, 
   BusinessMapDto, 
   BusinessMapStats,
   MapFilterRequest 
-} from '@/types/business';
-
+} from '@/types';
 // Hook for all businesses
 export const useBusinessData = () => {
   const [businesses, setBusinesses] = useState<Business[]>([]);

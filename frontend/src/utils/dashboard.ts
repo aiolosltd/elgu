@@ -1,4 +1,16 @@
 // utils/dashboard.ts
+// import type { 
+//   MonthlyComparison, 
+//   BusinessStatus, 
+//   BarangayData,
+//   DashboardStats,
+//   PieChartTransformedData,
+//   StackedBarTransformedData,
+//   LineChartTransformedData,
+//   HorizontalBarTransformedData,
+//   ComplianceRates
+// } from '@/types/dashboard';
+
 import type { 
   MonthlyComparison, 
   BusinessStatus, 
@@ -9,8 +21,8 @@ import type {
   LineChartTransformedData,
   HorizontalBarTransformedData,
   ComplianceRates
-} from '@/types/dashboard';
 
+} from '@/types';
 // ========== DATA TRANSFORMERS ==========
 
 /**

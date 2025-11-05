@@ -5,7 +5,7 @@ import { fetchNews } from '@/services/api/newsService';
 import { fetchOpenAIResponse } from '@/services/api/openaiService';
 import { formatTimestamp } from '@/lib/formatters';
 import { getFallbackGreeting, generateWeatherGreeting } from '@/components/molecules/helpers/greetings';
-import type { WeatherData } from '@/types/index';
+import type { WeatherData } from '@/types';
 import type { NewsItem } from '@/services/api/newsService';
 
 export function useDashboardSummary() {

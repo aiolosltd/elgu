@@ -1,10 +1,16 @@
 // hooks/useDashboardData.ts
 import { useState, useEffect } from 'react';
 import { dashboardService } from '@/services/dashboardService';
+// import type { 
+//   EnhancedDashboardChartData, 
+//   DashboardStats 
+// } from '@/types/dashboard';
+
 import type { 
   EnhancedDashboardChartData, 
   DashboardStats 
-} from '@/types/dashboard';
+} from '@/types';
+
 
 // Import from single files
 import {

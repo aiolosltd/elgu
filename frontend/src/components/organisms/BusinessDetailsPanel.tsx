@@ -5,6 +5,7 @@ import { Typography } from "@/components/atoms/typography";
 // import type { BusinessDetails, BusinessNameInfo, BusinessRequirements } from "@/types";
 
 interface BusinessDetailsPanelProps { 
+    // selectedBusiness: BusinessDetails | null;
   selectedBusiness: any; // Changed to any to handle different data structures
   onClose: () => void;
 }
@@ -31,6 +32,7 @@ type InfoData = Record<string, string | boolean | number | null | undefined>;
 
 export const BusinessDetailsPanel: React.FC<BusinessDetailsPanelProps> = ({
   selectedBusiness,
+  
   onClose,
 }) => {
   console.log("📊 BusinessDetailsPanel received data:", selectedBusiness);

@@ -13,7 +13,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import type { BaseChartProps, ChartConfig } from "@/types/charts"
+// import type { BaseChartProps, ChartConfig } from "@/types/charts"
+import type { BaseChartProps, ChartConfig } from "@/types"
 import { ChartFooter } from '@/components/molecules/charts/ChartFooter'
 
 interface GenericPieChartProps extends BaseChartProps {

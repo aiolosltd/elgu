@@ -14,7 +14,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { ChartFooter } from './ChartFooter'
-import type { BaseChartProps, ChartConfig } from "@/types/charts"
+import type { BaseChartProps, ChartConfig } from "@/types"
+// import type { BaseChartProps, ChartConfig } from "@/types/charts"
 
 interface GenericBarChartProps extends BaseChartProps {
   dataKey: string;

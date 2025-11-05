@@ -1,7 +1,8 @@
 // hooks/useBusinessHeatmap.ts
 import { useState, useEffect, useCallback } from 'react';
 // import { BusinessService } from '@/services/businessService';
-import type { BusinessMapDto } from '@/types/business';
+import type { BusinessMapDto } from '@/types';
+// import type { BusinessMapDto } from '@/types/business';
 
 // Leganes coordinates boundary
 export const leganesCoords = [

@@ -1,5 +1,17 @@
 // types/dashboard.ts
 
+
+
+export interface DashboardStats {
+  totalBusinesses: number;
+  compliantBusinesses: number;
+  pendingBusinesses: number;
+  nonCompliantBusinesses: number;
+  municipalities: number;
+  growthRate: number;
+}
+
+
 // ========== BASE CHART TYPES ==========
 export interface BaseChartProps {
   data: unknown[];
@@ -96,17 +108,7 @@ export interface BarangayData {
   percentage: number;
 }
 
-export interface BusinessDetails {
-  id: number;
-  businessId: string;
-  businessName: string;
-  street: string;
-  buildingName: string;
-  email: string;
-  contactNumber: string;
-  status: string;
-  registrationDate: string;
-}
+
 
 export interface ComprehensiveData {
   quickStats: QuickStats;

@@ -36,7 +36,7 @@ import type {
   DashboardFilters,
   // TrendData,
   ChartConfig
-} from '@/types/dashboard';
+} from '@/types';
 
 const DashboardPage = () => {
   const { stats, chartData, loading, error } = useDashboardData();

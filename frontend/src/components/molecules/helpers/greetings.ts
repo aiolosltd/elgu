@@ -1,4 +1,4 @@
-import type { WeatherData } from '@/types/index';
+import type { WeatherData } from '@/types';
 import { fetchOpenAIResponse } from '@/services/api/openaiService';
 
 export function getFallbackGreeting(): string {
